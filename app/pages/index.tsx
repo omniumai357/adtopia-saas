@@ -1,6 +1,5 @@
 import React from 'react';
 import Head from 'next/head';
-import { createClient } from '@supabase/supabase-js';
 
 interface GalleryImage {
   id: string;
@@ -13,10 +12,10 @@ interface GalleryImage {
 }
 
 interface HomeProps {
-  galleryImages: GalleryImage[];
+  galleryImages?: GalleryImage[];
 }
 
-export default function Home({ galleryImages }: HomeProps) {
+export default function Home({ galleryImages = [] }: HomeProps) {
   const [language, setLanguage] = React.useState<'en' | 'es'>('en');
   
   const t = {
@@ -188,28 +187,31 @@ export default function Home({ galleryImages }: HomeProps) {
 }
 
 export async function getServerSideProps() {
-  const supabase = createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.SUPABASE_SERVICE_ROLE_KEY!
-  );
-
-  const { data: galleryImages, error } = await supabase
-    .from('gallery_images')
-    .select('*')
-    .order('sort_order', { ascending: true });
-
-  if (error) {
-    console.error('Error fetching gallery images:', error);
-    return {
-      props: {
-        galleryImages: []
-      }
-    };
-  }
+  // Mock gallery images for now
+  const galleryImages = [
+    {
+      id: '1',
+      title: 'Plumbing Services',
+      description: 'Professional plumbing QR code',
+      image_url: '/gallery/plumbing-en.jpg',
+      language: 'en',
+      category: 'services',
+      is_featured: true
+    },
+    {
+      id: '2',
+      title: 'Servicios de Plomería',
+      description: 'Código QR profesional de plomería',
+      image_url: '/gallery/plumbing-es.jpg',
+      language: 'es',
+      category: 'services',
+      is_featured: true
+    }
+  ];
 
   return {
     props: {
-      galleryImages: galleryImages || []
+      galleryImages
     }
   };
 }
