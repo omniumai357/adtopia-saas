@@ -1,5 +1,6 @@
 import React from 'react';
 import Head from 'next/head';
+import { STRIPE_LINKS } from '../config/stripeConfig';
 
 interface GalleryImage {
   id: string;
@@ -102,13 +103,13 @@ export default function Home({ galleryImages = [] }: HomeProps) {
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
               <a
-                href="https://buy.stripe.com/test_14k8wA0qH0qH0qH0qH"
+                href={STRIPE_LINKS.PREVIEW}
                 className="bg-blue-600 text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-blue-700 transition-colors"
               >
                 {currentT.preview}
               </a>
               <a
-                href="https://buy.stripe.com/test_14k8wA0qH0qH0qH0qH"
+                href={STRIPE_LINKS.FULL_PACKAGE}
                 className="bg-green-600 text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-green-700 transition-colors"
               >
                 {currentT.full}
