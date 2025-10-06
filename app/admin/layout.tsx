@@ -34,12 +34,18 @@ export default function AdminLayout({
                 >
                   Products
                 </Link>
-                <Link 
-                  href="/admin/analytics" 
-                  className="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium"
-                >
-                  Analytics
-                </Link>
+                    <Link 
+                      href="/admin/analytics" 
+                      className="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium"
+                    >
+                      Analytics
+                    </Link>
+                    <Link 
+                      href="/admin/roles" 
+                      className="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium"
+                    >
+                      Roles
+                    </Link>
               </nav>
             </div>
             <div className="flex items-center space-x-4">
