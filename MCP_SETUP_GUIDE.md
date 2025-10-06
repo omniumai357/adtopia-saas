@@ -59,16 +59,16 @@ supabase functions deploy create-products
 ```bash
 # Supabase (Production)
 SUPABASE_URL=https://xwszqfmduotxjutlnyls.supabase.co
-SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
-SUPABASE_SERVICE_ROLE_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9[MASKED_FOR_SECURITY]
+SUPABASE_SERVICE_ROLE_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9[MASKED_FOR_SECURITY]
 
 # Stripe (Production)
-STRIPE_SECRET_KEY=sk_live_...
-STRIPE_WEBHOOK_SECRET=whsec_...
+STRIPE_SECRET_KEY=sk_live_[MASKED_FOR_SECURITY]
+STRIPE_WEBHOOK_SECRET=whsec_[MASKED_FOR_SECURITY]
 
 # Vercel (Production)
 NEXT_PUBLIC_SUPABASE_URL=https://xwszqfmduotxjutlnyls.supabase.co
-NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9[MASKED_FOR_SECURITY]
 ```
 
 #### **MCP Server Configuration**

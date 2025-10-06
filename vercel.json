@@ -5,8 +5,8 @@
   "installCommand": "npm install",
   "devCommand": "npm run dev",
   "env": {
-    "NEXT_PUBLIC_SUPABASE_URL": "https://your-project.supabase.co",
-    "NEXT_PUBLIC_SUPABASE_ANON_KEY": "your-anon-key",
+    "NEXT_PUBLIC_SUPABASE_URL": "https://https://xwszqfmduotxjutlnyls.supabase.co",
+    "NEXT_PUBLIC_SUPABASE_ANON_KEY": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9[MASKED]",
     "SUPABASE_SERVICE_ROLE_KEY": "your-service-role-key",
     "STRIPE_SECRET_KEY": "sk_test_your_stripe_key",
     "STRIPE_WEBHOOK_SECRET": "whsec_your_webhook_secret",

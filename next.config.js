@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ['localhost', 'vercel.app', 'supabase.co'],
+    domains: ['adtopia-saas-2ulgwy3xb-omnia-group.vercel.app', 'vercel.app', 'supabase.co'],
   },
   env: {
     NEXT_PUBLIC_SUPABASE_URL: process.env.NEXT_PUBLIC_SUPABASE_URL,

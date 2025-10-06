@@ -14,23 +14,33 @@
     "supabase:reset": "supabase db reset"
   },
   "dependencies": {
+    "@stripe/stripe-js": "^2.0.0",
+    "@supabase/supabase-js": "^2.45.4",
     "next": "^14.0.0",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
-    "@supabase/supabase-js": "^2.45.4",
-    "@stripe/stripe-js": "^2.0.0",
-    "stripe": "^14.0.0",
-    "resend": "^3.0.0"
+    "resend": "^3.0.0",
+    "stripe": "^14.0.0"
   },
   "devDependencies": {
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.0",
     "@types/node": "^20.0.0",
     "@types/react": "^18.0.0",
     "@types/react-dom": "^18.0.0",
-    "typescript": "^5.0.0",
     "eslint": "^8.0.0",
-    "eslint-config-next": "^14.0.0"
+    "eslint-config-next": "^14.0.0",
+    "jest": "^30.2.0",
+    "typescript": "^5.0.0",
+    "vitest": "^3.2.4"
   },
-  "keywords": ["saas", "ai", "ad-cards", "qr-codes", "marketing"],
+  "keywords": [
+    "saas",
+    "ai",
+    "ad-cards",
+    "qr-codes",
+    "marketing"
+  ],
   "author": "AdTopia Team",
   "license": "MIT"
 }

@@ -3,19 +3,19 @@
 
 export const STRIPE_LINKS = {
   // Core Packages
-  PREVIEW: "https://buy.stripe.com/test_14k8wA0qH0qH0qH0qH", // $29 Preview
-  FULL_PACKAGE: "https://buy.stripe.com/test_14k8wA0qH0qH0qH0qH", // $297 Full Package
+  PREVIEW: "https://buy.stripe.com/[PRODUCT_ID_PREVIEW]", // $29 Preview
+  FULL_PACKAGE: "https://buy.stripe.com/[PRODUCT_ID_FULL]", // $297 Full Package
   
   // Add-ons
-  TRANSLATION: "https://buy.stripe.com/test_14k8wA0qH0qH0qH0qH", // $29 Translation
-  DOMAIN_SSL: "https://buy.stripe.com/test_14k8wA0qH0qH0qH0qH", // $49 Domain+SSL
-  EXTRA_CARDS: "https://buy.stripe.com/test_14k8wA0qH0qH0qH0qH", // $39 Extra Cards
-  ANALYTICS: "https://buy.stripe.com/test_14k8wA0qH0qH0qH0qH", // $19 Analytics
-  SOCIAL_PACK: "https://buy.stripe.com/test_14k8wA0qH0qH0qH0qH", // $35 Social Pack
+  TRANSLATION: "https://buy.stripe.com/[PRODUCT_ID_TRANSLATION]", // $29 Translation
+  DOMAIN_SSL: "https://buy.stripe.com/[PRODUCT_ID_DOMAIN_SSL]", // $49 Domain+SSL
+  EXTRA_CARDS: "https://buy.stripe.com/[PRODUCT_ID_EXTRA_CARDS]", // $39 Extra Cards
+  ANALYTICS: "https://buy.stripe.com/[PRODUCT_ID_ANALYTICS]", // $19 Analytics
+  SOCIAL_PACK: "https://buy.stripe.com/[PRODUCT_ID_SOCIAL_PACK]", // $35 Social Pack
   
   // Enterprise
-  ENTERPRISE: "https://buy.stripe.com/test_14k8wA0qH0qH0qH0qH", // Custom pricing
-  WHITE_LABEL: "https://buy.stripe.com/test_14k8wA0qH0qH0qH0qH", // Reseller program
+  ENTERPRISE: "https://buy.stripe.com/[PRODUCT_ID_ENTERPRISE]", // Custom pricing
+  WHITE_LABEL: "https://buy.stripe.com/[PRODUCT_ID_WHITE_LABEL]", // Reseller program
 };
 
 export const PACKAGES = {
