@@ -33,20 +33,84 @@ serve(async (req) => {
     const body = await req.text();
     const event = stripe.webhooks.constructEvent(body, signature, webhookSecret);
 
-    console.log(`Processing webhook event: ${event.type}`);
+    console.log(`Processing webhook event: ${event.type} (ID: ${event.id})`);
 
-    switch (event.type) {
-      case "checkout.session.completed":
-        await handleCheckoutCompleted(event.data.object, supabaseClient);
-        break;
-      case "invoice.payment_succeeded":
-        await handlePaymentSucceeded(event.data.object, supabaseClient);
-        break;
-      default:
-        console.log(`Unhandled event type: ${event.type}`);
+    // CRITICAL: Check idempotency to prevent duplicate processing
+    const { data: existingEvent, error: idempotencyError } = await supabaseClient
+      .from("webhook_events")
+      .select("id, processed")
+      .eq("stripe_event_id", event.id)
+      .maybeSingle();
+
+    if (idempotencyError) {
+      console.error("Error checking idempotency:", idempotencyError);
+      throw new Error("Failed to check event idempotency");
     }
 
-    return new Response(JSON.stringify({ received: true }), {
+    if (existingEvent) {
+      console.log(`Event ${event.id} already processed, skipping`);
+      return new Response(JSON.stringify({ 
+        received: true, 
+        idempotent: true,
+        message: "Event already processed" 
+      }), {
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
+
+    // Mark event as being processed
+    const { error: markProcessingError } = await supabaseClient
+      .from("webhook_events")
+      .insert({
+        stripe_event_id: event.id,
+        event_type: event.type,
+        processed: false,
+        created_at: new Date().toISOString()
+      });
+
+    if (markProcessingError) {
+      console.error("Error marking event as processing:", markProcessingError);
+      throw new Error("Failed to mark event as processing");
+    }
+
+    // Process the event
+    let processingSuccess = false;
+    try {
+      switch (event.type) {
+        case "checkout.session.completed":
+          await handleCheckoutCompleted(event.data.object, supabaseClient);
+          break;
+        case "invoice.payment_succeeded":
+          await handlePaymentSucceeded(event.data.object, supabaseClient);
+          break;
+        default:
+          console.log(`Unhandled event type: ${event.type}`);
+      }
+      processingSuccess = true;
+    } catch (processingError) {
+      console.error("Error processing event:", processingError);
+      throw processingError;
+    } finally {
+      // Mark event as processed (success or failure)
+      const { error: markProcessedError } = await supabaseClient
+        .from("webhook_events")
+        .update({ 
+          processed: true,
+          processed_at: new Date().toISOString(),
+          success: processingSuccess
+        })
+        .eq("stripe_event_id", event.id);
+
+      if (markProcessedError) {
+        console.error("Error marking event as processed:", markProcessedError);
+      }
+    }
+
+    return new Response(JSON.stringify({ 
+      received: true, 
+      processed: true,
+      event_id: event.id 
+    }), {
       headers: { ...corsHeaders, "Content-Type": "application/json" },
     });
   } catch (error) {

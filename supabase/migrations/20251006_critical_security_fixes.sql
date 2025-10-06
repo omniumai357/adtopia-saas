@@ -224,6 +224,8 @@ CREATE TABLE IF NOT EXISTS webhook_events (
   stripe_event_id TEXT UNIQUE NOT NULL,
   event_type TEXT NOT NULL,
   processed BOOLEAN DEFAULT FALSE,
+  success BOOLEAN DEFAULT NULL,
+  processed_at TIMESTAMPTZ,
   created_at TIMESTAMPTZ DEFAULT NOW()
 );
 
