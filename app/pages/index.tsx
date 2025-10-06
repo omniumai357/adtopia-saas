@@ -1,6 +1,6 @@
 import React from 'react';
 import Head from 'next/head';
-import { STRIPE_LINKS } from '../config/stripeConfig';
+import { STRIPE_LINKS } from '../../src/config/stripeConfig';
 
 interface GalleryImage {
   id: string;
