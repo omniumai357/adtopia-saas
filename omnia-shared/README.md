@@ -25,76 +25,63 @@ omnia-shared/
 
 #### ✅ Universal Product Creation
 - **Multi-project support**: AdTopia, BizBox, GammaFlow, ShieldStaff
-- **JSON-driven configuration**: Easy product management
+- **JSON-driven configuration**: Easy product management via fetch()
 - **Stripe integration**: Direct product creation via API
-- **Dry run support**: Safe testing without creating actual products
+- **Simple and clean**: Minimal, focused implementation
 
 #### ✅ Comprehensive Logging
-- **Database logging**: All products logged to `stripe_products_log` table via RPC calls
+- **Database logging**: All products logged to `stripe_products_log` table via direct insert
 - **Structured logging**: JSON-formatted logs with timestamps
 - **Error tracking**: Detailed error logging and reporting
-- **Analytics**: Product statistics and performance metrics
+- **Simple logging**: Clean console.error for database issues
 
 #### ✅ Security & Validation
-- **Input validation**: Comprehensive parameter validation
+- **Input validation**: Parameter validation via utils
 - **Environment checks**: Required environment variables validation
-- **CORS support**: Proper headers for cross-origin requests
 - **Error handling**: Graceful error handling with detailed responses
+- **Clean responses**: Simple JSON responses with proper status codes
 
 #### ✅ Analytics & Reporting
-- **Product statistics**: Count, value, average price calculations
-- **Success rates**: Creation success/failure tracking
-- **Project comparison**: Cross-project performance analysis
+- **Product creation tracking**: All products logged with metadata
+- **Success logging**: Creation success with count tracking
+- **Error logging**: Detailed error tracking and reporting
 - **Audit trail**: Complete product creation history
 
 ### Usage
 
 #### Basic Usage
 ```bash
-# Create products for AdTopia (dry run)
-curl "https://your-domain.com/functions/v1/create-products?project=adtopia&dryRun=true"
+# Create products for AdTopia
+curl "https://your-domain.com/functions/v1/create-products?project=adtopia"
 
-# Create products for BizBox (live)
+# Create products for BizBox
 curl "https://your-domain.com/functions/v1/create-products?project=bizbox"
 
-# Create limited products
-curl "https://your-domain.com/functions/v1/create-products?project=gammaflow&limit=2"
+# Create products for GammaFlow
+curl "https://your-domain.com/functions/v1/create-products?project=gammaflow"
+
+# Create products for ShieldStaff
+curl "https://your-domain.com/functions/v1/create-products?project=shieldstaff"
 ```
 
 #### Response Format
 ```json
 {
   "success": true,
-  "summary": {
-    "project": "adtopia",
-    "total_requested": 9,
-    "total_created": 9,
-    "total_errors": 0,
-    "dry_run": false,
-    "statistics": {
-      "totalProducts": 9,
-      "totalValue": 69700,
-      "averagePrice": 7744.44,
-      "minPrice": 1900,
-      "maxPrice": 29700,
-      "success_rate": "100%"
-    }
-  },
   "created": [
     {
       "id": "prod_1234567890",
       "name": "Starter Package",
-      "price": "$29.00",
-      "price_usd": 29.00,
-      "metadata": {
-        "package_type": "starter",
-        "category": "ad_package",
-        "internal_id": "001"
-      },
-      "created_at": "2025-01-16T18:19:00.000Z"
+      "price_usd": "29.00",
+      "log_id": "prod_1234567890"
+    },
+    {
+      "id": "prod_0987654321",
+      "name": "Growth Package",
+      "price_usd": "79.00",
+      "log_id": "prod_0987654321"
     }
-  ],
-  "timestamp": "2025-01-16T18:19:00.000Z"
+  ]
 }
 ```
 
