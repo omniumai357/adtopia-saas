@@ -1,0 +1,23 @@
+{
+  "mcpServers": {
+    "supabase": {
+      "command": "npx",
+      "args": ["@supabase/mcp-server"],
+      "env": {
+        "SUPABASE_URL": "https://xwszqfmduotxjutlnyls.supabase.co",
+        "SUPABASE_ANON_KEY": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh3c3pxZm1kdW90eGp1dGxueWxzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzYwNzQ4NzEsImV4cCI6MjA1MTY1MDg3MX0.8QZqJqJqJqJqJqJqJqJqJqJqJqJqJqJqJqJqJqJq",
+        "SUPABASE_SERVICE_ROLE_KEY": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh3c3pxZm1kdW90eGp1dGxueWxzIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTczNjA3NDg3MSwiZXhwIjoyMDUxNjUwODcxfQ.8QZqJqJqJqJqJqJqJqJqJqJqJqJqJqJqJqJqJqJq"
+      }
+    }
+  },
+  "externalCommands": {
+    "allowed": [
+      "curl",
+      "supabase",
+      "vercel",
+      "git",
+      "npm",
+      "node"
+    ]
+  }
+}

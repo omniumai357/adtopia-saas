@@ -1,79 +1,70 @@
-# AdTopia / BizBox / Omnia Platform - Cursor Rules
+# AdTopia SaaS - Cursor AI Rules
+# Production-ready revenue system with enhanced MCP integration
 
-## Operating Mode
-This workspace runs the AdTopia / BizBox / GammaFlow multi-product SaaS under Omnia Group LLC.
+## 🎯 PROJECT CONTEXT
+This is a production-ready SaaS command center for AdTopia revenue generation.
+- **Frontend**: Next.js + Vercel (https://adtopia-saas-2ulgwy3xb-omnia-group.vercel.app)
+- **Backend**: Supabase (adtopia.io - xwszqfmduotxjutlnyls)
+- **Revenue**: Universal product creation system for all Omnia SaaS projects
+- **Security**: Enhanced RLS policies, audit logging, data retention
 
-Before performing *any* action involving credentials, Stripe, Supabase, or Vercel:
-1. Run verification commands (no prompting for credentials unless missing):
-   - `bash scripts/preflight.sh` → must show all ✅ checks
-   - `stripe whoami` → must show **Omnia Group LLC**, Mode: **Live**
-   - `supabase secrets list | grep STRIPE_SECRET_KEY` → must return a value
-   - `vercel env ls` → must list STRIPE + SUPABASE envs
-2. If verification passes, **DO NOT ASK** for credentials again.
-3. Always reason using facts from logs, not assumptions.
-4. All destructive actions require a rollback plan and confirmation.
+## 🔧 MCP INTEGRATION
+- **Supabase MCP**: Enabled for seamless database operations
+- **External Commands**: curl, supabase, vercel, git, npm, node allowed
+- **No Auth Prompts**: All credentials stored in environment secrets
+- **Pipeline**: edit → test → vercel --prod in <2min
 
-## Context Awareness
-- Front-end: `adtopia-saas` (Vercel)
-- Client portal: `bizbox-ai` (Vercel)
-- Backend: Supabase (DB + Auth + Edge Functions)
-- Payments: Stripe (Omnia Group LLC acct_1S7JMzCs9rGgIdMi)
+## 🚀 DEPLOYMENT WORKFLOW
+```bash
+# 1. Code changes
+git add . && git commit -m "feat: description"
 
-## Security Protocol
-- Never print or expose secrets.
-- Confirm live context before any Stripe commands.
-- Use existing Supabase/Vercel secrets for runtime auth.
-- Maintain RLS integrity (no public write policies).
-- Do not move `pg_net` schema; hosted environments block it.
+# 2. Deploy frontend
+vercel --prod
 
-## North Star
-Ship real, revenue-producing features → shortest path to the nearest dollar.  
-Every change must advance one of:
-- Faster customer onboarding
-- More efficient ad production
-- Stable, automated billing and analytics
+# 3. Deploy backend functions
+supabase functions deploy create-products
+supabase functions deploy security-monitor
 
-## Decision Loop
-Ask yourself:
-- 🧠 *Verify*: Is the state confirmed from command or log?
-- ⚙️ *Execute*: Can it be safely applied (idempotent, reversible)?
-- 📊 *Measure*: Will this action increase stability, conversion, or scale?
+# 4. Test endpoints
+curl "https://xwszqfmduotxjutlnyls.supabase.co/functions/v1/create-products?project=adtopia"
+```
 
-If the answer to any is "no", stop and verify before continuing.
+## 🔒 SECURITY PROTOCOL
+- **Never prompt for API keys**: All stored in Supabase/Vercel secrets
+- **Use MCP for database ops**: No manual CLI authentication needed
+- **Test with curl**: Quick API validation without auth friction
+- **Monitor with security-monitor**: Real-time alerts for security events
 
-## Build Strategy Meta-Prompts
+## 📊 REVENUE SYSTEM
+- **Universal Function**: Creates products for AdTopia, BizBox, GammaFlow, ShieldStaff
+- **Product Catalog**: 9 AdTopia products ($29-$297 pricing tiers)
+- **Payment Flow**: Stripe integration with webhook automation
+- **Admin Dashboard**: Revenue monitoring and analytics
 
-### A. When building features
-Goal: Implement the minimal viable version of the feature that gets us closer to customer acquisition or retention.
-Check dependencies → Confirm secrets → Generate code → Test locally → Commit.
-Never add new services unless the gain > complexity.
+## 🎯 NORTH STAR ALIGNMENT
+Every change must:
+1. **Reduce friction** for paying customers
+2. **Create or protect revenue**
+3. **Deploy with <3 commands**
 
-### B. When debugging
-Goal: Identify root cause using logs & context, not guesses.
-Step 1: Verify environment context (Stripe/Supabase/Vercel).
-Step 2: Inspect logs (Supabase Edge logs, Vercel build logs, Stripe dashboard).
-Step 3: Reproduce issue locally with safe data.
-Step 4: Fix & retest. Log the resolution.
+## 🚨 CRITICAL RULES
+- **No manual key entry**: Use MCP and environment secrets
+- **Test before deploy**: Use curl for quick API validation
+- **Security first**: All customer data protected with RLS
+- **Revenue focus**: Every feature must advance monetization
 
-### C. When deploying
-Goal: Ship tested, reversible changes to production safely.
-Preflight check ✅
-Commit message format: [scope]: [summary] (#issue-id)
-Run: vercel deploy --prebuilt
-Monitor Supabase logs & Stripe webhooks post-deploy.
+## 🔧 TROUBLESHOOTING
+- **Build errors**: Check .vercelignore excludes supabase/functions/
+- **Auth issues**: Use MCP instead of manual CLI authentication
+- **API failures**: Test with curl before debugging
+- **Deploy issues**: Check preflight.sh for environment validation
 
-## Cursor Context Shortcut Prompts
-- 🔍 Verify all connections: "Run preflight verification and confirm Omnia Group LLC live session."
-- 💳 Stripe sanity check: "List all products and prices from Omnia Group LLC without re-authenticating; confirm live mode."
-- 🧠 Schema integrity: "Describe all Supabase tables with RLS policies; list public policies that allow read access."
-- 🚀 Deployment: "Run preflight, build, and deploy main to Vercel using stored env vars."
-- ⚖️ Security: "Check for any edge function using esm.sh; update to npm:@spec imports."
-- 🛡️ Monitoring: "Ensure security-alerts edge function is enabled and sending to SECURITY_WEBHOOK_URL."
+## 📈 SUCCESS METRICS
+- **Week 1**: $750-$3,000 revenue target
+- **Month 1**: $3,750-$12,000 revenue target
+- **Conversion**: 2-5% landing page to purchase
+- **Deploy time**: <2 minutes from code to production
 
-## North Star Reinforcement
-Every change must pass the "North Star Test":
-1. Does this reduce friction for a paying customer or partner?
-2. Does this create, protect, or measure revenue?
-3. Can it be deployed with <3 commands?
-
-If not, park it in /roadmap/postlaunch.md and refocus on monetization or stability.
+---
+**Ready to generate revenue immediately upon product creation!** 🚀
