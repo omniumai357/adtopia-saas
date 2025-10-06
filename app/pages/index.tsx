@@ -1,6 +1,7 @@
 import React from 'react';
 import Head from 'next/head';
 import { STRIPE_LINKS } from '../../src/config/stripeConfig';
+import { APP_CONFIG } from '../../src/config/appConfig';
 
 interface GalleryImage {
   id: string;
@@ -24,8 +25,8 @@ export default function Home({ galleryImages = [] }: HomeProps) {
       title: "AdTopia - AI-Powered Ad Cards",
       subtitle: "Generate professional QR codes for your business in 24 hours",
       cta: "Get Your QR Code",
-      preview: "Preview - $29",
-      full: "Full Package - $297",
+      preview: `Preview - ${APP_CONFIG.PRICING.STARTER.priceDisplay}`,
+      full: `Full Package - ${APP_CONFIG.PRICING.BASIC.priceDisplay}`,
       guarantee: "24-hour delivery or full refund",
       features: [
         "Professional QR Code Generation",
@@ -39,8 +40,8 @@ export default function Home({ galleryImages = [] }: HomeProps) {
       title: "AdTopia - Tarjetas Publicitarias con IA",
       subtitle: "Genera códigos QR profesionales para tu negocio en 24 horas",
       cta: "Obtén Tu Código QR",
-      preview: "Vista Previa - $29",
-      full: "Paquete Completo - $297",
+      preview: `Vista Previa - ${APP_CONFIG.PRICING.STARTER.priceDisplay}`,
+      full: `Paquete Completo - ${APP_CONFIG.PRICING.BASIC.priceDisplay}`,
       guarantee: "Entrega en 24 horas o reembolso completo",
       features: [
         "Generación Profesional de Códigos QR",
@@ -109,13 +110,13 @@ export default function Home({ galleryImages = [] }: HomeProps) {
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
               <a
-                href={STRIPE_LINKS.PREVIEW}
+                href={STRIPE_LINKS.STARTER}
                 className="bg-blue-600 text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-blue-700 transition-colors"
               >
                 {currentT.preview}
               </a>
               <a
-                href={STRIPE_LINKS.FULL_PACKAGE}
+                href={STRIPE_LINKS.BASIC}
                 className="bg-green-600 text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-green-700 transition-colors"
               >
                 {currentT.full}

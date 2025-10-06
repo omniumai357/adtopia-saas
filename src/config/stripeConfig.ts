@@ -1,42 +1,38 @@
 // AdTopia Stripe Payment Links Configuration
-// Replace these with your actual Stripe payment links
+// Now uses appConfig.ts as single source of truth
 
+import { APP_CONFIG } from './appConfig';
+
+// Legacy exports for backward compatibility
 export const STRIPE_LINKS = {
   // Core Packages
-  PREVIEW: "https://buy.stripe.com/[PRODUCT_ID_PREVIEW]", // $29 Preview
-  FULL_PACKAGE: "https://buy.stripe.com/[PRODUCT_ID_FULL]", // $297 Full Package
+  STARTER: APP_CONFIG.PRICING.STARTER.stripeLink,
+  BASIC: APP_CONFIG.PRICING.BASIC.stripeLink,
+  PRO: APP_CONFIG.PRICING.PRO.stripeLink,
+  ULTIMATE: APP_CONFIG.PRICING.ULTIMATE.stripeLink,
   
   // Add-ons
-  TRANSLATION: "https://buy.stripe.com/[PRODUCT_ID_TRANSLATION]", // $29 Translation
-  DOMAIN_SSL: "https://buy.stripe.com/[PRODUCT_ID_DOMAIN_SSL]", // $49 Domain+SSL
-  EXTRA_CARDS: "https://buy.stripe.com/[PRODUCT_ID_EXTRA_CARDS]", // $39 Extra Cards
-  ANALYTICS: "https://buy.stripe.com/[PRODUCT_ID_ANALYTICS]", // $19 Analytics
-  SOCIAL_PACK: "https://buy.stripe.com/[PRODUCT_ID_SOCIAL_PACK]", // $35 Social Pack
+  TRANSLATION: APP_CONFIG.ADDONS.TRANSLATION.stripeLink,
+  DOMAIN_SSL: APP_CONFIG.ADDONS.DOMAIN_SSL.stripeLink,
+  EXTRA_CARDS: APP_CONFIG.ADDONS.EXTRA_CARDS.stripeLink,
+  ANALYTICS: APP_CONFIG.ADDONS.ANALYTICS.stripeLink,
+  SOCIAL_PACK: APP_CONFIG.ADDONS.SOCIAL_PACK.stripeLink,
   
-  // Enterprise
-  ENTERPRISE: "https://buy.stripe.com/[PRODUCT_ID_ENTERPRISE]", // Custom pricing
-  WHITE_LABEL: "https://buy.stripe.com/[PRODUCT_ID_WHITE_LABEL]", // Reseller program
+  // Analytics
+  ANALYTICS_PRO: APP_CONFIG.ANALYTICS.PRO.stripeLink,
+  ANALYTICS_ENTERPRISE: APP_CONFIG.ANALYTICS.ENTERPRISE.stripeLink,
 };
 
+// Legacy package exports
 export const PACKAGES = {
-  PREVIEW: {
-    name: "Preview",
-    price: 29,
-    description: "See your QR code in action",
-    features: ["QR Code Generation", "24h Delivery", "Email Support"],
-    stripeLink: STRIPE_LINKS.PREVIEW
-  },
-  FULL_PACKAGE: {
-    name: "Full Package", 
-    price: 297,
-    description: "Complete setup + 3 months support",
-    features: ["QR Code Generation", "Custom Design", "3 Months Support", "Analytics Dashboard", "Priority Support"],
-    stripeLink: STRIPE_LINKS.FULL_PACKAGE
-  }
+  STARTER: APP_CONFIG.PRICING.STARTER,
+  BASIC: APP_CONFIG.PRICING.BASIC,
+  PRO: APP_CONFIG.PRICING.PRO,
+  ULTIMATE: APP_CONFIG.PRICING.ULTIMATE,
 };
 
 // Redirect URLs for Stripe
 export const REDIRECT_URLS = {
-  SUCCESS: "https://adtopia-saas-mgolqcide-omnia-group.vercel.app/payment-success",
-  CANCEL: "https://adtopia-saas-mgolqcide-omnia-group.vercel.app/payment-cancel"
+  SUCCESS: APP_CONFIG.REDIRECT_URLS.SUCCESS,
+  CANCEL: APP_CONFIG.REDIRECT_URLS.CANCEL
 };
