@@ -4,7 +4,7 @@
 
 -- Create stripe_products_log table for tracking all created products
 CREATE TABLE IF NOT EXISTS public.stripe_products_log (
-  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   project TEXT NOT NULL,
   stripe_product_id TEXT NOT NULL,
   name TEXT NOT NULL,
