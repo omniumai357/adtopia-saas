@@ -29,6 +29,7 @@ Use live data only; no mocks in production.
 - ✅ Vercel: `adtopia-saas` deployed and ready
 - ✅ Stripe: Keys stored in Supabase secrets
 - ✅ Universal Function: Deployed for all Omnia product lines
+- ✅ Stripe Log Viewer: Admin dashboard with RLS security
 - ❌ Products: Need to be created in Stripe Dashboard
 - ❌ Payment Links: Need to be generated and configured
 
@@ -63,7 +64,13 @@ Step 2: Inspect logs (Supabase Edge logs, Vercel build logs, Stripe dashboard).
 Step 3: Reproduce issue locally with safe data.
 Step 4: Fix & retest. Log the resolution.
 
-### C. When deploying
+### C. Stripe Log Viewer (Admin)
+- UI route: `/admin/stripe-logs`
+- Source: `stripe_products_log` table (RLS enforced)
+- CSV export + search/filter support
+- Access restricted to `is_admin() = true`
+
+### D. When deploying
 Goal: Ship tested, reversible changes to production safely.
 Preflight check ✅
 Commit message format: [scope]: [summary] (#issue-id)
