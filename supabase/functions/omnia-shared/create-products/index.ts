@@ -3,6 +3,7 @@
 
 import { serve } from "https://deno.land/std@0.181.0/http/server.ts";
 import Stripe from "https://esm.sh/stripe@13.4.0?target=deno";
+import { createClient } from "npm:@supabase/supabase-js@2.56.1";
 import { log, validatePayload } from "./utils.ts";
 
 serve(async (req) => {
@@ -36,6 +37,15 @@ serve(async (req) => {
       throw new Error("Missing STRIPE_SECRET_KEY in environment");
     }
 
+    // Initialize Supabase client for logging
+    const supabaseUrl = Deno.env.get("SUPABASE_URL");
+    const supabaseServiceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY");
+    
+    if (!supabaseUrl || !supabaseServiceKey) {
+      throw new Error("Missing Supabase environment variables");
+    }
+
+    const supabase = createClient(supabaseUrl, supabaseServiceKey);
     const stripe = new Stripe(STRIPE_SECRET_KEY, {
       apiVersion: "2023-10-16",
     });
@@ -61,26 +71,76 @@ serve(async (req) => {
     validatePayload(json);
 
     const created: any[] = [];
+    const dryRun = url.searchParams.get("dryRun") === "true";
 
     for (const p of json.products) {
-      const product = await stripe.products.create({
-        name: p.name,
-        description: p.description,
-        metadata: p.metadata,
-        default_price_data: {
-          currency: "usd",
-          unit_amount: p.price_cents,
-        },
-      });
-      created.push({
+      let product;
+      
+      if (dryRun) {
+        // Mock product for dry run
+        product = {
+          id: `prod_dryrun_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
+          name: p.name,
+          description: p.description,
+          metadata: p.metadata,
+        };
+      } else {
+        // Create actual Stripe product
+        product = await stripe.products.create({
+          name: p.name,
+          description: p.description,
+          metadata: p.metadata,
+          default_price_data: {
+            currency: "usd",
+            unit_amount: p.price_cents,
+          },
+        });
+      }
+
+      const productData = {
         id: product.id,
         name: product.name,
         price: `$${(p.price_cents / 100).toFixed(2)}`,
+        price_usd: p.price_cents / 100,
         metadata: p.metadata,
-      });
+      };
+
+      created.push(productData);
+
+      // Log product creation to database
+      try {
+        const { error: logError } = await supabase.rpc('log_stripe_product_creation', {
+          p_project: project,
+          p_stripe_product_id: product.id,
+          p_name: product.name,
+          p_price_usd: productData.price_usd,
+          p_metadata: p.metadata
+        });
+
+        if (logError) {
+          await log("⚠️ Failed to log product creation", { 
+            product_id: product.id, 
+            error: logError.message 
+          });
+        } else {
+          await log("📝 Product logged to database", { 
+            product_id: product.id, 
+            project 
+          });
+        }
+      } catch (logError) {
+        await log("⚠️ Database logging failed", { 
+          product_id: product.id, 
+          error: logError.message 
+        });
+      }
     }
 
-    await log("✅ Products created", { project, count: created.length });
+    await log("✅ Products created", { 
+      project, 
+      count: created.length, 
+      dryRun: dryRun 
+    });
 
     return new Response(JSON.stringify({ 
       success: true, 
