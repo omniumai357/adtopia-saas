@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-// Dynamic import to avoid SSR issues
+import { createBrowserClient } from '@supabase/ssr';
 import Link from 'next/link';
 
 type DashboardStats = {
@@ -16,7 +16,13 @@ type DashboardStats = {
 };
 
 export default function AdminDashboard() {
-  // Using existing Supabase client
+  const supabase = typeof window !== 'undefined' && process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+    ? createBrowserClient(
+        process.env.NEXT_PUBLIC_SUPABASE_URL,
+        process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+      )
+    : null;
+  
   const [stats, setStats] = useState<DashboardStats>({
     totalProducts: 0,
     totalRevenue: 0,
@@ -27,14 +33,39 @@ export default function AdminDashboard() {
   useEffect(() => {
     const fetchStats = async () => {
       try {
-        // Mock data for now (until Supabase is properly configured)
-        const mockData = {
-          totalProducts: 0,
-          totalRevenue: 0,
-          recentProducts: []
-        };
+        if (!supabase) {
+          // Set mock data if Supabase is not available
+          setStats({
+            totalProducts: 0,
+            totalRevenue: 0,
+            recentProducts: []
+          });
+          setLoading(false);
+          return;
+        }
 
-        setStats(mockData);
+        // Try to fetch real data from Supabase
+        const { count: totalProducts } = await supabase
+          .from('stripe_products_log')
+          .select('*', { count: 'exact', head: true });
+
+        const { data: revenueData } = await supabase
+          .from('stripe_products_log')
+          .select('price_usd');
+
+        const totalRevenue = revenueData?.reduce((sum, item) => sum + (item.price_usd || 0), 0) || 0;
+
+        const { data: recentProducts } = await supabase
+          .from('stripe_products_log')
+          .select('id, name, price_usd, created_at')
+          .order('created_at', { ascending: false })
+          .limit(5);
+
+        setStats({
+          totalProducts: totalProducts || 0,
+          totalRevenue,
+          recentProducts: recentProducts || []
+        });
       } catch (error) {
         console.error('Error fetching stats:', error);
         // Set mock data if Supabase is not available
@@ -49,7 +80,7 @@ export default function AdminDashboard() {
     };
 
     fetchStats();
-  }, []);
+  }, [supabase]);
 
   if (loading) {
     return (
