@@ -1,0 +1,7 @@
+{
+  "version": "1.0.0",
+  "name": "stripe-create-product",
+  "description": "Creates Stripe products and logs them in Supabase",
+  "runtime": "deno",
+  "entrypoint": "index.ts"
+}
