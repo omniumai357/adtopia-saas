@@ -85,6 +85,12 @@ export default function Home({ galleryImages = [] }: HomeProps) {
                 >
                   ES
                 </button>
+                <a
+                  href="/admin"
+                  className="px-3 py-1 text-sm text-gray-600 hover:text-gray-900 border border-gray-300 rounded hover:bg-gray-50"
+                >
+                  Admin
+                </a>
               </div>
             </div>
           </div>
