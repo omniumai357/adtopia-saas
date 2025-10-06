@@ -3,10 +3,7 @@
 
 import { serve } from "https://deno.land/std@0.181.0/http/server.ts";
 import Stripe from "https://esm.sh/stripe@13.4.0?target=deno";
-import { 
-  createSupabaseClient, 
-  withDatabaseLogging 
-} from "./supabaseClient.ts";
+import { supabase } from "./supabaseClient.ts";
 import { 
   validatePayload, 
   log, 
@@ -38,16 +35,19 @@ serve(async (req) => {
       throw new Error("Missing STRIPE_SECRET_KEY in environment");
     }
 
-    // Initialize clients
-    const supabase = createSupabaseClient();
+    // Initialize Stripe client
     const stripe = new Stripe(STRIPE_SECRET_KEY, {
       apiVersion: "2023-10-16",
     });
 
     // Test database connection
-    const dbTest = await supabase.testConnection();
-    if (!dbTest.success) {
-      await log("⚠️ Database connection test failed", { error: dbTest.error });
+    try {
+      const { data, error } = await supabase.from('stripe_products_log').select('count').limit(1);
+      if (error) {
+        await log("⚠️ Database connection test failed", { error: error.message });
+      }
+    } catch (error) {
+      await log("⚠️ Database connection test failed", { error: error.message });
     }
 
     // Load product configuration from JSON file
@@ -133,23 +133,41 @@ serve(async (req) => {
         created.push(productData);
 
         // Log product creation to database
-        const logResult = await withDatabaseLogging(
-          () => supabase.logProductCreation({
-            project,
-            stripeProductId: product.id,
-            name: product.name,
-            priceUsd: productData.price_usd,
-            metadata: productConfig.metadata
-          }),
-          { success: false, error: "Database logging failed" },
-          `📝 Product logged to database: ${product.id}`
-        );
+        try {
+          const { data, error } = await supabase.rpc('log_stripe_product_creation', {
+            p_project: project,
+            p_stripe_product_id: product.id,
+            p_name: product.name,
+            p_price_usd: productData.price_usd,
+            p_metadata: productConfig.metadata
+          });
 
-        if (!logResult.success) {
+          if (error) {
+            errors.push({
+              product_id: product.id,
+              error: error.message,
+              type: "database_logging"
+            });
+            await log("⚠️ Failed to log product creation", { 
+              product_id: product.id, 
+              error: error.message 
+            });
+          } else {
+            await log("📝 Product logged to database", { 
+              product_id: product.id, 
+              project,
+              log_id: data
+            });
+          }
+        } catch (logError) {
           errors.push({
             product_id: product.id,
-            error: logResult.error,
+            error: logError.message,
             type: "database_logging"
+          });
+          await log("⚠️ Database logging failed", { 
+            product_id: product.id, 
+            error: logError.message 
           });
         }
 

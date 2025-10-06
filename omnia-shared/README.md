@@ -14,7 +14,7 @@ omnia-shared/
     └── create-products/
         ├── index.ts                   # Universal creator + logger
         ├── utils.ts                   # Helpers (logging, validation)
-        ├── supabaseClient.ts          # Minimal Deno client for DB writes
+        ├── supabaseClient.ts          # Minimal Deno client for DB operations
         ├── adtopia.json              # AdTopia product configurations
         ├── bizbox.json               # BizBox product configurations
         ├── gammaflow.json            # GammaFlow product configurations
@@ -30,7 +30,7 @@ omnia-shared/
 - **Dry run support**: Safe testing without creating actual products
 
 #### ✅ Comprehensive Logging
-- **Database logging**: All products logged to `stripe_products_log` table
+- **Database logging**: All products logged to `stripe_products_log` table via RPC calls
 - **Structured logging**: JSON-formatted logs with timestamps
 - **Error tracking**: Detailed error logging and reporting
 - **Analytics**: Product statistics and performance metrics
@@ -134,7 +134,7 @@ curl "https://your-domain.com/functions/v1/create-products?project=gammaflow&lim
 - `SUPABASE_SERVICE_ROLE_KEY`: Supabase service role key
 
 #### Optional
-- `DRY_RUN`: Set to "true" for testing mode
+- `DRY_RUN`: Set to "true" for testing mode (via URL parameter)
 - `LOG_LEVEL`: Logging verbosity (DEBUG, INFO, WARN, ERROR)
 
 ### Database Schema

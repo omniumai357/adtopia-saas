@@ -73,7 +73,7 @@ echo "============================="
 
 # Test 3: Check TypeScript imports
 echo -e "\n${BLUE}Testing TypeScript imports...${NC}"
-if grep -q "createSupabaseClient\|withDatabaseLogging" omnia-shared/functions/create-products/index.ts; then
+if grep -q "import.*supabase.*from.*supabaseClient" omnia-shared/functions/create-products/index.ts; then
     log_test "TypeScript Imports" "PASS" "Proper imports in index.ts"
 else
     log_test "TypeScript Imports" "FAIL" "Missing imports in index.ts"
@@ -89,10 +89,10 @@ fi
 
 # Test 5: Check Supabase client
 echo -e "\n${BLUE}Testing Supabase client...${NC}"
-if grep -q "logProductCreation\|getRecentProducts\|testConnection" omnia-shared/functions/create-products/supabaseClient.ts; then
-    log_test "Supabase Client" "PASS" "All client methods present"
+if grep -q "createClient\|SUPABASE_URL\|SUPABASE_SERVICE_ROLE_KEY" omnia-shared/functions/create-products/supabaseClient.ts; then
+    log_test "Supabase Client" "PASS" "Minimal client implementation present"
 else
-    log_test "Supabase Client" "FAIL" "Missing client methods"
+    log_test "Supabase Client" "FAIL" "Missing client implementation"
 fi
 
 echo -e "\n${PURPLE}3. JSON CONFIGURATION VALIDATION${NC}"
@@ -166,8 +166,8 @@ echo "============================="
 
 # Test 13: Check database integration
 echo -e "\n${BLUE}Testing database integration...${NC}"
-if grep -q "logProductCreation\|testConnection" omnia-shared/functions/create-products/index.ts; then
-    log_test "Database Integration" "PASS" "Database logging and connection testing implemented"
+if grep -q "supabase.rpc\|log_stripe_product_creation" omnia-shared/functions/create-products/index.ts; then
+    log_test "Database Integration" "PASS" "Database logging and RPC calls implemented"
 else
     log_test "Database Integration" "FAIL" "Database integration missing"
 fi
