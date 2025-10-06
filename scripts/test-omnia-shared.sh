@@ -81,8 +81,8 @@ fi
 
 # Test 4: Check utility functions
 echo -e "\n${BLUE}Testing utility functions...${NC}"
-if grep -q "validatePayload\|log\|generateMockProductId" omnia-shared/functions/create-products/utils.ts; then
-    log_test "Utility Functions" "PASS" "All utility functions present"
+if grep -q "validatePayload\|log" omnia-shared/functions/create-products/utils.ts; then
+    log_test "Utility Functions" "PASS" "Core utility functions present"
 else
     log_test "Utility Functions" "FAIL" "Missing utility functions"
 fi

@@ -13,7 +13,7 @@ omnia-shared/
 └── functions/
     └── create-products/
         ├── index.ts                   # Universal creator + logger
-        ├── utils.ts                   # Helpers (logging, validation)
+        ├── utils.ts                   # Minimal helpers (logging, validation)
         ├── supabaseClient.ts          # Minimal Deno client for DB operations
         ├── adtopia.json              # AdTopia product configurations
         ├── bizbox.json               # BizBox product configurations
@@ -36,7 +36,7 @@ omnia-shared/
 - **Simple logging**: Clean console.error for database issues
 
 #### ✅ Security & Validation
-- **Input validation**: Parameter validation via utils
+- **Input validation**: Simple JSON payload validation
 - **Environment checks**: Required environment variables validation
 - **Error handling**: Graceful error handling with detailed responses
 - **Clean responses**: Simple JSON responses with proper status codes
@@ -44,7 +44,7 @@ omnia-shared/
 #### ✅ Analytics & Reporting
 - **Product creation tracking**: All products logged with metadata
 - **Success logging**: Creation success with count tracking
-- **Error logging**: Detailed error tracking and reporting
+- **Simple logging**: Timestamped console logs
 - **Audit trail**: Complete product creation history
 
 ### Usage
