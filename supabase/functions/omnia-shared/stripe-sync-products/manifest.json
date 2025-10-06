@@ -1,0 +1,7 @@
+{
+  "version": "1.0.0",
+  "name": "stripe-sync-products",
+  "description": "Backfills Stripe products into Supabase stripe_products_log every 24h",
+  "runtime": "deno",
+  "entrypoint": "index.ts"
+}
