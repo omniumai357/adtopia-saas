@@ -2,7 +2,6 @@
 // AdTopia SaaS - Product Creation Analytics
 
 import { NextRequest, NextResponse } from 'next/server'
-import { supabase } from '@/src/lib/supabase'
 
 export async function GET(req: NextRequest) {
   try {
@@ -10,46 +9,36 @@ export async function GET(req: NextRequest) {
     const project = searchParams.get('project')
     const limit = parseInt(searchParams.get('limit') || '10')
 
-    // Get recent products
-    const { data: recentProducts, error: recentError } = await supabase
-      .rpc('get_recent_stripe_products', { p_limit: limit })
-
-    if (recentError) {
-      console.error('Error fetching recent products:', recentError)
-      return NextResponse.json({ error: 'Failed to fetch recent products' }, { status: 500 })
-    }
-
-    // Get summary by project
-    const { data: summary, error: summaryError } = await supabase
-      .rpc('get_stripe_products_summary', { p_project: project })
-
-    if (summaryError) {
-      console.error('Error fetching summary:', summaryError)
-      return NextResponse.json({ error: 'Failed to fetch summary' }, { status: 500 })
-    }
-
-    // Get full report view
-    const { data: report, error: reportError } = await supabase
-      .from('stripe_products_report')
-      .select('*')
-      .order('total_value', { ascending: false })
-
-    if (reportError) {
-      console.error('Error fetching report:', reportError)
-      return NextResponse.json({ error: 'Failed to fetch report' }, { status: 500 })
+    // Mock data for now (until Supabase is properly configured)
+    const mockData = {
+      recent_products: [
+        {
+          id: '1',
+          project: 'adtopia',
+          name: 'Preview Package',
+          price_usd: 29,
+          created_at: new Date().toISOString()
+        },
+        {
+          id: '2',
+          project: 'adtopia',
+          name: 'Full Package',
+          price_usd: 297,
+          created_at: new Date().toISOString()
+        }
+      ],
+      summary: {
+        total_products: 2,
+        total_value: 326,
+        project: project || 'adtopia'
+      },
+      report: []
     }
 
     return NextResponse.json({
       success: true,
-      data: {
-        recent_products: recentProducts,
-        summary: summary,
-        report: report,
-        filters: {
-          project: project,
-          limit: limit
-        }
-      }
+      data: mockData,
+      message: 'Mock data - Supabase integration pending'
     })
 
   } catch (error) {
@@ -70,24 +59,18 @@ export async function POST(req: NextRequest) {
       }, { status: 400 })
     }
 
-    // Log product creation
-    const { data, error } = await supabase.rpc('log_stripe_product_creation', {
-      p_project: project,
-      p_stripe_product_id: stripe_product_id,
-      p_name: name,
-      p_price_usd: price_usd,
-      p_metadata: metadata || null
-    })
-
-    if (error) {
-      console.error('Error logging product:', error)
-      return NextResponse.json({ error: 'Failed to log product' }, { status: 500 })
-    }
-
+    // Mock response for now (until Supabase is properly configured)
     return NextResponse.json({
       success: true,
-      log_id: data,
-      message: 'Product logged successfully'
+      log_id: 'mock_' + Date.now(),
+      message: 'Product logged successfully (mock)',
+      data: {
+        project,
+        stripe_product_id,
+        name,
+        price_usd,
+        metadata
+      }
     })
 
   } catch (error) {

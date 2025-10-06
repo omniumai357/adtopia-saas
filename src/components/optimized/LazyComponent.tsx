@@ -27,13 +27,13 @@ export function withLazyLoading<T extends object>(
   return function WrappedComponent(props: T) {
     return (
       <Suspense fallback={fallback || <div className="animate-pulse bg-gray-200 h-32 rounded" />}>
-        <LazyComponent {...props} />
+        <LazyComponent {...(props as any)} />
       </Suspense>
     )
   }
 }
 
-// Lazy load heavy components
-export const LazyGallery = lazy(() => import('./Gallery'))
-export const LazyPricing = lazy(() => import('./Pricing'))
-export const LazyContact = lazy(() => import('./Contact'))
+// Lazy load heavy components (commented out until components exist)
+// export const LazyGallery = lazy(() => import('./Gallery'))
+// export const LazyPricing = lazy(() => import('./Pricing'))
+// export const LazyContact = lazy(() => import('./Contact'))
