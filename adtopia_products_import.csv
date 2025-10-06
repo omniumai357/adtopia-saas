@@ -1,0 +1,10 @@
+Name,Description,Price (USD),Type,Unit Label,Metadata (package_type),Metadata (category),Metadata (internal_id),Feature 1,Feature 2,Feature 3,Feature 4,Feature 5
+Starter Package,"7-day live preview • QR code ready • Mobile responsive",29,one_off,Ad Package,starter,ad_package,001,7-day live preview,QR code ready,Mobile responsive,,
+Growth Package,"30-day extended preview • Domain hold service • SSL certificate setup • Email support",79,one_off,Ad Package,growth,ad_package,002,30-day extended preview,Domain hold service,SSL certificate setup,Email support,
+Pro Package,"Dual-language ads • Priority setup • Advanced analytics • Phone support",149,one_off,Ad Package,pro,ad_package,003,Dual-language ads,Priority setup,Advanced analytics,Phone support,
+Full Beta Package,"5 custom SEO ad cards • 12 months hosting • Free domain + SSL • Dual-language support • Premium analytics/support",297,one_off,Ad Package,full_beta,ad_package,004,5 custom SEO ad cards,12 months hosting,Free domain + SSL,Dual-language support,Premium analytics/support
+Extra Translation,"Add a translated ad card • Reach bilingual markets • Expand audience instantly",29,one_off,Add-On,translation,add_on,005,Add a translated ad card,Reach bilingual markets,Expand audience instantly,,
+Domain + SSL,"Professional domain • SSL encryption • 1-year included",49,one_off,Add-On,domain_ssl,add_on,006,Professional domain,SSL encryption,1-year included,,
+Extra Cards,"Add more custom ad cards • Tailored to your business • Expand campaigns",39,one_off,Add-On,extra_cards,add_on,007,Add more custom ad cards,Tailored to your business,Expand campaigns,,
+Premium Analytics,"Advanced tracking • Campaign insights • Conversion metrics",19,one_off,Add-On,analytics,add_on,008,Advanced tracking,Campaign insights,Conversion metrics,,
+Social Media Pack,"Facebook + Instagram ready • Craigslist optimized • One-click sharing",35,one_off,Add-On,social_pack,add_on,009,Facebook + Instagram ready,Craigslist optimized,One-click sharing,,

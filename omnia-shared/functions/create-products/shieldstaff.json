@@ -1,0 +1,34 @@
+{
+  "products": [
+    {
+      "name": "ShieldStaff Basic",
+      "description": "Essential staffing platform • 10 job postings/month • Basic candidate matching • Email support",
+      "metadata": {
+        "package_type": "basic",
+        "category": "staffing",
+        "internal_id": "shield001"
+      },
+      "price_cents": 9900
+    },
+    {
+      "name": "ShieldStaff Professional",
+      "description": "Advanced staffing platform • 50 job postings/month • AI candidate matching • Priority support • Custom branding",
+      "metadata": {
+        "package_type": "professional",
+        "category": "staffing",
+        "internal_id": "shield002"
+      },
+      "price_cents": 24900
+    },
+    {
+      "name": "ShieldStaff Enterprise",
+      "description": "Full staffing platform • Unlimited job postings • Advanced AI matching • Dedicated support • White-label solution",
+      "metadata": {
+        "package_type": "enterprise",
+        "category": "staffing",
+        "internal_id": "shield003"
+      },
+      "price_cents": 49900
+    }
+  ]
+}

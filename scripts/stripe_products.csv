@@ -1,0 +1,10 @@
+Name,Description,Price,Unit Label,Metadata,Feature List
+"AdTopia Starter","$29 starter package - See your QR code in action",29,"Ad Package","package_type=starter;category=ad_package;internal_id=001","7-day preview,QR code ready,Mobile responsive"
+"AdTopia Growth","$79 growth package - Essential QR code setup",79,"Ad Package","package_type=growth;category=ad_package;internal_id=002","QR Code Generation,24h Delivery,Email Support"
+"AdTopia Pro","$149 pro package - Advanced features + analytics",149,"Ad Package","package_type=pro;category=ad_package;internal_id=003","Custom Design,Analytics Dashboard,Priority Support"
+"AdTopia Full Beta","$297 full beta package - Complete setup + 3 months support",297,"Ad Package","package_type=full_beta;category=ad_package;internal_id=004","5 custom ad cards,12 months hosting,domain + SSL included"
+"Extra Translation","$29 translation service - Bilingual translation",29,"Add-on","package_type=translation;category=add_on;internal_id=005","Bilingual support,EN/ES conversion"
+"Domain + SSL","$49 domain service - Custom domain + SSL certificate",49,"Add-on","package_type=domain;category=add_on;internal_id=006","Custom domain,SSL certificate,Setup included"
+"Extra Cards","$39 extra cards - Additional QR cards",39,"Add-on","package_type=extra_cards;category=add_on;internal_id=007","Additional QR codes,Extra designs"
+"Premium Analytics","$19 analytics - Advanced analytics dashboard",19,"Add-on","package_type=analytics;category=add_on;internal_id=008","Advanced tracking,Performance metrics"
+"Social Media Pack","$35 social pack - Social media integration",35,"Add-on","package_type=social;category=add_on;internal_id=009","Social media integration,Platform optimization"

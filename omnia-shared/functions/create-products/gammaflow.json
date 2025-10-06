@@ -1,0 +1,34 @@
+{
+  "products": [
+    {
+      "name": "GammaFlow Basic",
+      "description": "AI-powered automation • 100 automations/month • Email support",
+      "metadata": {
+        "package_type": "basic",
+        "category": "automation",
+        "internal_id": "gamma001"
+      },
+      "price_cents": 4900
+    },
+    {
+      "name": "GammaFlow Pro",
+      "description": "Advanced AI automation • 1000 automations/month • Priority support • Custom workflows",
+      "metadata": {
+        "package_type": "pro",
+        "category": "automation",
+        "internal_id": "gamma002"
+      },
+      "price_cents": 14900
+    },
+    {
+      "name": "GammaFlow Enterprise",
+      "description": "Unlimited AI automation • Custom integrations • Dedicated support • White-label",
+      "metadata": {
+        "package_type": "enterprise",
+        "category": "automation",
+        "internal_id": "gamma003"
+      },
+      "price_cents": 49900
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "products": [
+    {
+      "name": "BizBox Starter",
+      "description": "Basic white-label platform • 5 client accounts • Email support",
+      "metadata": {
+        "package_type": "starter",
+        "category": "platform",
+        "internal_id": "biz001"
+      },
+      "price_cents": 9900
+    },
+    {
+      "name": "BizBox Professional",
+      "description": "Advanced white-label platform • 25 client accounts • Priority support • Custom branding",
+      "metadata": {
+        "package_type": "professional",
+        "category": "platform",
+        "internal_id": "biz002"
+      },
+      "price_cents": 24900
+    },
+    {
+      "name": "BizBox Enterprise",
+      "description": "Full white-label platform • Unlimited clients • Dedicated support • Custom domain",
+      "metadata": {
+        "package_type": "enterprise",
+        "category": "platform",
+        "internal_id": "biz003"
+      },
+      "price_cents": 49900
+    }
+  ]
+}
