@@ -59,6 +59,60 @@
 - **GitHub**: https://github.com/omniumai357/adtopia-saas
 - **Vercel Dashboard**: https://vercel.com/omnia-group/adtopia-saas
 
+## UUID Fetch System
+
+### SQL Implementation
+```sql
+-- Fetch UUID by email
+SELECT id FROM auth.users WHERE email = 'user@example.com' LIMIT 1;
+
+-- Insert admin role (idempotent)
+INSERT INTO public.user_roles (user_id, role)
+VALUES ('<uuid>', 'admin')
+ON CONFLICT (user_id, role) DO NOTHING;
+
+-- Verify roles
+SELECT role FROM public.user_roles WHERE user_id = '<uuid>';
+```
+
+### JavaScript Implementation
+```javascript
+// Get user UUID by email
+async function getUserUUID(email) {
+  const { data, error } = await supabase
+    .from('auth.users')
+    .select('id')
+    .eq('email', email)
+    .single();
+  
+  return data?.id;
+}
+
+// Grant admin role
+async function grantAdminRole(uuid) {
+  const { error } = await supabase
+    .from('user_roles')
+    .upsert({
+      user_id: uuid,
+      role: 'admin'
+    }, { onConflict: 'user_id,role' });
+  
+  return !error;
+}
+```
+
+### Run Commands
+```bash
+# Test UUID fetch
+supabase db query "SELECT id FROM auth.users WHERE email = 'test@example.com';"
+
+# Test role verification
+supabase db query "SELECT role FROM public.user_roles WHERE user_id = '9123a30c-0f40-4205-abe4-2e183e6fdddf';"
+
+# Test business metrics access
+supabase db query "SELECT 1 FROM public.user_roles ur WHERE ur.user_id = '9123a30c-0f40-4205-abe4-2e183e6fdddf' AND ur.role = 'admin';"
+```
+
 ## Support
 
 Email: beta@bizbox.host
