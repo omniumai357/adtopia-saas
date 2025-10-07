@@ -1,0 +1,10 @@
+{
+  "name": "sync-stripe-products",
+  "description": "Sync official product catalog with Stripe and log to Supabase",
+  "version": "1.0.0",
+  "main": "index.ts",
+  "dependencies": {
+    "stripe": "14.21.0",
+    "@supabase/supabase-js": "2.56.1"
+  }
+}

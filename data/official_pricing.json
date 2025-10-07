@@ -1,0 +1,39 @@
+{
+  "tiers": {
+    "starter": {
+      "name": "Starter",
+      "price": 29,
+      "currency": "USD",
+      "stripe_product_id": "prod_starter",
+      "features": ["Basic QR codes", "Email support", "Standard templates"]
+    },
+    "growth": {
+      "name": "Growth", 
+      "price": 79,
+      "currency": "USD",
+      "stripe_product_id": "prod_growth",
+      "features": ["Advanced QR codes", "Priority support", "Custom branding", "Analytics"]
+    },
+    "pro": {
+      "name": "Pro",
+      "price": 149,
+      "currency": "USD", 
+      "stripe_product_id": "prod_pro",
+      "features": ["Premium QR codes", "24/7 support", "White-label", "Advanced analytics", "API access"]
+    },
+    "enterprise": {
+      "name": "Enterprise",
+      "price": 297,
+      "currency": "USD",
+      "stripe_product_id": "prod_enterprise", 
+      "features": ["Unlimited QR codes", "Dedicated support", "Custom integrations", "SLA", "On-premise"]
+    }
+  },
+  "addons": {
+    "translation": {"name": "Translation", "price": 29},
+    "domain_ssl": {"name": "Domain + SSL", "price": 49},
+    "extra_cards": {"name": "Extra Cards", "price": 39},
+    "analytics": {"name": "Analytics", "price": 19},
+    "social_pack": {"name": "Social Pack", "price": 35}
+  }
+}
