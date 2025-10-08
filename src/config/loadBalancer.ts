@@ -139,7 +139,6 @@ export class LoadBalancer {
       const startTime = Date.now();
       const response = await fetch(`http://${server.host}:${server.port}${this.config.healthCheck.path}`, {
         method: 'GET',
-        timeout: this.config.healthCheck.timeout,
       });
 
       const responseTime = Date.now() - startTime;
@@ -165,7 +164,7 @@ export class LoadBalancer {
       
       if (server.errorCount >= this.config.healthCheck.unhealthyThreshold) {
         server.status = 'unhealthy';
-        console.log(`❌ Server ${server.id} marked as unhealthy: ${error.message}`);
+        console.log(`❌ Server ${server.id} marked as unhealthy: ${error instanceof Error ? error.message : 'Unknown error'}`);
       }
     }
   }
@@ -227,7 +226,7 @@ export class LoadBalancer {
   private cleanupMetrics(): void {
     const cutoffTime = Date.now() - (this.config.metrics.retentionDays * 24 * 60 * 60 * 1000);
     
-    for (const [timestamp, _] of this.metrics) {
+    for (const [timestamp, _] of Array.from(this.metrics.entries())) {
       if (parseInt(timestamp) < cutoffTime) {
         this.metrics.delete(timestamp);
       }

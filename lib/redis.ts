@@ -4,22 +4,6 @@ import { createClient } from 'redis';
 const redisClient = createClient({
   url: process.env.REDIS_URL || 'redis://localhost:6379',
   password: process.env.REDIS_PASSWORD,
-  socket: {
-    tls: process.env.NODE_ENV === 'production',
-    rejectUnauthorized: false,
-  },
-  retry_strategy: (options) => {
-    if (options.error && options.error.code === 'ECONNREFUSED') {
-      return new Error('Redis server connection refused');
-    }
-    if (options.total_retry_time > 1000 * 60 * 60) {
-      return new Error('Retry time exhausted');
-    }
-    if (options.attempt > 10) {
-      return undefined;
-    }
-    return Math.min(options.attempt * 100, 3000);
-  },
 });
 
 // Connection event handlers

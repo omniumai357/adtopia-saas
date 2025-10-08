@@ -167,7 +167,7 @@ export class SlidingWindowRateLimiter {
     const now = Date.now();
     const maxAge = 24 * 60 * 60 * 1000; // 24 hours
     
-    for (const [identifier, requests] of this.requests) {
+    for (const [identifier, requests] of Array.from(this.requests.entries())) {
       const validRequests = requests.filter(timestamp => now - timestamp < maxAge);
       if (validRequests.length === 0) {
         this.requests.delete(identifier);
@@ -256,7 +256,7 @@ export class DDoSProtection {
     const maxAge = 60 * 60 * 1000; // 1 hour
     
     // Clean up suspicious IPs
-    for (const [ip, record] of this.suspiciousIPs) {
+    for (const [ip, record] of Array.from(this.suspiciousIPs.entries())) {
       if (now - record.lastSeen > maxAge) {
         this.suspiciousIPs.delete(ip);
       }

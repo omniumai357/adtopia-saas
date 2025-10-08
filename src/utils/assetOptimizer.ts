@@ -70,7 +70,14 @@ export class AssetOptimizer {
     };
 
     const optimizedOptions = { ...defaultOptions, ...options };
-    const optimizedUrl = cdn.getOptimizedImageUrl(logoPath, optimizedOptions);
+    // Ensure format is compatible with CDN function
+    const cdnOptions = {
+      width: optimizedOptions.width,
+      height: optimizedOptions.height,
+      format: optimizedOptions.format === 'jpeg' || optimizedOptions.format === 'png' ? 'auto' : optimizedOptions.format,
+      quality: optimizedOptions.quality
+    };
+    const optimizedUrl = cdn.getOptimizedImageUrl(logoPath, cdnOptions);
 
     const asset: AgencyAsset = {
       id: `logo_${agencyId}_${Date.now()}`,
@@ -106,7 +113,14 @@ export class AssetOptimizer {
     };
 
     const optimizedOptions = { ...defaultOptions, ...options };
-    const optimizedUrl = cdn.getOptimizedImageUrl(imagePath, optimizedOptions);
+    // Ensure format is compatible with CDN function
+    const cdnOptions = {
+      width: optimizedOptions.width,
+      height: optimizedOptions.height,
+      format: optimizedOptions.format === 'jpeg' || optimizedOptions.format === 'png' ? 'auto' : optimizedOptions.format,
+      quality: optimizedOptions.quality
+    };
+    const optimizedUrl = cdn.getOptimizedImageUrl(imagePath, cdnOptions);
 
     const asset: AgencyAsset = {
       id: `product_${agencyId}_${productId}_${Date.now()}`,
@@ -141,7 +155,14 @@ export class AssetOptimizer {
     };
 
     const optimizedOptions = { ...defaultOptions, ...options };
-    const optimizedUrl = cdn.getOptimizedImageUrl(bannerPath, optimizedOptions);
+    // Ensure format is compatible with CDN function
+    const cdnOptions = {
+      width: optimizedOptions.width,
+      height: optimizedOptions.height,
+      format: optimizedOptions.format === 'jpeg' || optimizedOptions.format === 'png' ? 'auto' : optimizedOptions.format,
+      quality: optimizedOptions.quality
+    };
+    const optimizedUrl = cdn.getOptimizedImageUrl(bannerPath, cdnOptions);
 
     const asset: AgencyAsset = {
       id: `banner_${agencyId}_${Date.now()}`,
@@ -177,7 +198,14 @@ export class AssetOptimizer {
     };
 
     const optimizedOptions = { ...defaultOptions, ...options };
-    const optimizedUrl = cdn.getOptimizedImageUrl(avatarPath, optimizedOptions);
+    // Ensure format is compatible with CDN function
+    const cdnOptions = {
+      width: optimizedOptions.width,
+      height: optimizedOptions.height,
+      format: optimizedOptions.format === 'jpeg' || optimizedOptions.format === 'png' ? 'auto' : optimizedOptions.format,
+      quality: optimizedOptions.quality
+    };
+    const optimizedUrl = cdn.getOptimizedImageUrl(avatarPath, cdnOptions);
 
     const asset: AgencyAsset = {
       id: `avatar_${agencyId}_${userId}_${Date.now()}`,
@@ -252,7 +280,7 @@ export class AssetOptimizer {
       }
 
       // Remove from local cache
-      for (const [id, asset] of this.assetCache) {
+      for (const [id, asset] of Array.from(this.assetCache.entries())) {
         if (asset.agencyId === agencyId) {
           this.assetCache.delete(id);
         }
@@ -322,7 +350,7 @@ export class AssetOptimizer {
     const cutoffTime = Date.now() - maxAge;
     let cleanedCount = 0;
 
-    for (const [id, asset] of this.assetCache) {
+    for (const [id, asset] of Array.from(this.assetCache.entries())) {
       if (asset.lastAccessed.getTime() < cutoffTime) {
         this.assetCache.delete(id);
         cleanedCount++;

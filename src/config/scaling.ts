@@ -76,7 +76,7 @@ export const healthCheck = async () => {
       version: process.env.npm_package_version
     };
   } catch (error) {
-    monitoring.trackError(error as Error, { check: 'health' });
+    console.error('Health check error:', error);
     throw error;
   }
 };

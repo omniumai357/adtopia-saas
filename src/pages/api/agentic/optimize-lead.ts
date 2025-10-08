@@ -78,7 +78,6 @@ export default async function handler(
     res.status(200).json({
       success: true,
       optimization,
-      tracking_id: data?.[0]?.id,
       message: optimization.confidence > 0.8 
         ? '🚀 High-confidence optimization ready for deployment'
         : '⚠️ Medium confidence - consider A/B testing'

@@ -1,5 +1,11 @@
 // Cloud-native performance monitoring
 
+declare global {
+  interface Window {
+    gtag?: (...args: any[]) => void;
+  }
+}
+
 export class AdTopiaMonitoring {
   static trackOptimization(leadId: string, confidence: number, action: string) {
     // Send to your analytics platform

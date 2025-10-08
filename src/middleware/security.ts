@@ -74,14 +74,14 @@ export const validateAgencyAuth = async (req: any, res: any, next: any) => {
     const isValid = await validateAgencyApiKey(agencyId, apiKey);
     
     if (!isValid) {
-      monitoring.trackError(new Error('Invalid agency credentials'), { agencyId });
+      console.error('Invalid agency credentials for agency:', agencyId);
       return res.status(401).json({ error: 'Invalid agency credentials' });
     }
     
     req.agencyId = agencyId;
     next();
   } catch (error) {
-    monitoring.trackError(error as Error, { middleware: 'validateAgencyAuth' });
+    console.error('Authentication error:', error);
     res.status(500).json({ error: 'Authentication error' });
   }
 };

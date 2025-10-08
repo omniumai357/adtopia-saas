@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { cdn } from '@/src/utils/cdn';
-import { performanceMonitor } from '@/lib/monitoring';
+import { AdTopiaMonitoring } from '@/src/lib/monitoring';
 
 // CDN Optimization API for AdTopia global performance
 export async function GET(request: NextRequest) {
@@ -49,11 +49,9 @@ export async function GET(request: NextRequest) {
     }
 
     const duration = Date.now() - startTime;
-    await performanceMonitor.trackApiResponse(
+    AdTopiaMonitoring.trackPerformance(
       `/api/cdn/optimize?action=${action}`,
-      'GET',
-      duration,
-      200
+      duration
     );
 
     return NextResponse.json({
@@ -66,7 +64,10 @@ export async function GET(request: NextRequest) {
 
   } catch (error) {
     const duration = Date.now() - startTime;
-    await performanceMonitor.trackError(error as Error, { action: 'cdn_optimize_get' });
+    AdTopiaMonitoring.trackPerformance(
+      `/api/cdn/optimize`,
+      duration
+    );
 
     return NextResponse.json(
       {
@@ -115,11 +116,9 @@ export async function POST(request: NextRequest) {
     }
 
     const duration = Date.now() - startTime;
-    await performanceMonitor.trackApiResponse(
+    AdTopiaMonitoring.trackPerformance(
       `/api/cdn/optimize?action=${action}`,
-      'POST',
-      duration,
-      200
+      duration
     );
 
     return NextResponse.json({
@@ -132,7 +131,7 @@ export async function POST(request: NextRequest) {
 
   } catch (error) {
     const duration = Date.now() - startTime;
-    await performanceMonitor.trackError(error as Error, { action: 'cdn_optimize_post' });
+    AdTopiaMonitoring.trackPerformance('/api/agency/cache', duration);
 
     return NextResponse.json(
       {

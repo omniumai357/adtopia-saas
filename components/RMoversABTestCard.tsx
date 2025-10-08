@@ -31,7 +31,7 @@ export function RMoversABTestCard({ onQuoteRequest, className = '' }: RMoversABT
   // Track card view on mount
   useEffect(() => {
     const ctaText = currentVariant === 'A' ? 'Slots Vanishing - Book Now!' : '3,500+ Moves Guaranteed';
-    trackCardView(currentCardType, ctaText);
+    trackCardView(currentCardType as 'urgency_red' | 'value_blue', ctaText);
     
     // Show urgency overlay for A1 after 3 seconds
     if (currentVariant === 'A') {

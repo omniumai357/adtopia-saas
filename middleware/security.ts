@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { ddosProtection } from '../lib/rateLimiter';
-import { performanceMonitor } from '../lib/monitoring';
+import { AdTopiaMonitoring } from '@/src/lib/monitoring';
 
 // Security middleware for AdTopia scaling
 export class SecurityMiddleware {
@@ -165,11 +165,9 @@ export class SecurityMiddleware {
     } finally {
       // Track performance
       const duration = Date.now() - startTime;
-      await performanceMonitor.trackApiResponse(
+      AdTopiaMonitoring.trackPerformance(
         new URL(url).pathname,
-        method,
-        duration,
-        200
+        duration
       );
     }
   }
@@ -216,9 +214,9 @@ export class SecurityMiddleware {
     }
 
     // Track in monitoring system
-    await performanceMonitor.trackError(
-      new Error(`Security Event: ${eventType}`),
-      logData
+    AdTopiaMonitoring.trackPerformance(
+      `Security Event: ${eventType}`,
+      0
     );
   }
 

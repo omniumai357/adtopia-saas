@@ -1,5 +1,5 @@
 import { createClient } from '@supabase/supabase-js';
-import { performanceMonitor } from './monitoring';
+import { AdTopiaMonitoring } from '@/src/lib/monitoring';
 import { cache } from './redis';
 
 // Enhanced database client with performance optimization
@@ -51,10 +51,9 @@ class OptimizedSupabaseClient {
         const cached = await this.getCachedQuery(cacheKey);
         if (cached) {
           const duration = Date.now() - startTime;
-          await performanceMonitor.trackDatabaseQuery(
+          AdTopiaMonitoring.trackPerformance(
             `SELECT FROM ${table} (cached)`,
-            duration,
-            cached.length
+            duration
           );
           return { data: cached, error: null, performance: { duration, cached: true } };
         }
@@ -102,10 +101,9 @@ class OptimizedSupabaseClient {
       const duration = Date.now() - startTime;
 
       // Track performance
-      await performanceMonitor.trackDatabaseQuery(
+      AdTopiaMonitoring.trackPerformance(
         `SELECT FROM ${table}`,
-        duration,
-        data?.length || 0
+        duration
       );
 
       // Cache result if enabled
@@ -117,7 +115,7 @@ class OptimizedSupabaseClient {
 
     } catch (error) {
       const duration = Date.now() - startTime;
-      await performanceMonitor.trackError(error as Error, { table, options });
+      AdTopiaMonitoring.trackPerformance('database_error', 0);
       return { data: null, error, performance: { duration, cached: false } };
     }
   }
@@ -163,10 +161,9 @@ class OptimizedSupabaseClient {
       }
 
       const duration = Date.now() - startTime;
-      await performanceMonitor.trackDatabaseQuery(
+      AdTopiaMonitoring.trackPerformance(
         `INSERT INTO ${table}`,
-        duration,
-        results.length
+        duration
       );
 
       // Invalidate cache
@@ -180,7 +177,7 @@ class OptimizedSupabaseClient {
 
     } catch (error) {
       const duration = Date.now() - startTime;
-      await performanceMonitor.trackError(error as Error, { table, data: dataArray.length });
+      AdTopiaMonitoring.trackPerformance('database_error', 0);
       return { data: null, error, performance: { duration } };
     }
   }
@@ -211,10 +208,9 @@ class OptimizedSupabaseClient {
       const { data: result, error } = await query;
 
       const duration = Date.now() - startTime;
-      await performanceMonitor.trackDatabaseQuery(
+      AdTopiaMonitoring.trackPerformance(
         `UPDATE ${table}`,
-        duration,
-        result?.length || 0
+        duration
       );
 
       // Invalidate cache
@@ -224,7 +220,7 @@ class OptimizedSupabaseClient {
 
     } catch (error) {
       const duration = Date.now() - startTime;
-      await performanceMonitor.trackError(error as Error, { table, data, filters });
+      AdTopiaMonitoring.trackPerformance('database_error', 0);
       return { data: null, error, performance: { duration } };
     }
   }
@@ -254,10 +250,9 @@ class OptimizedSupabaseClient {
       const { data, error } = await query;
 
       const duration = Date.now() - startTime;
-      await performanceMonitor.trackDatabaseQuery(
+      AdTopiaMonitoring.trackPerformance(
         `DELETE FROM ${table}`,
-        duration,
-        data?.length || 0
+        duration
       );
 
       // Invalidate cache
@@ -267,7 +262,7 @@ class OptimizedSupabaseClient {
 
     } catch (error) {
       const duration = Date.now() - startTime;
-      await performanceMonitor.trackError(error as Error, { table, filters });
+      AdTopiaMonitoring.trackPerformance('database_error', 0);
       return { data: null, error, performance: { duration } };
     }
   }
@@ -290,10 +285,9 @@ class OptimizedSupabaseClient {
         const cached = await this.getCachedQuery(cacheKey);
         if (cached) {
           const duration = Date.now() - startTime;
-          await performanceMonitor.trackDatabaseQuery(
+          AdTopiaMonitoring.trackPerformance(
             `RPC ${functionName} (cached)`,
-            duration,
-            1
+            duration
           );
           return { data: cached, error: null, performance: { duration, cached: true } };
         }
@@ -302,10 +296,9 @@ class OptimizedSupabaseClient {
       const { data, error } = await this.client.rpc(functionName, params);
       const duration = Date.now() - startTime;
 
-      await performanceMonitor.trackDatabaseQuery(
+      AdTopiaMonitoring.trackPerformance(
         `RPC ${functionName}`,
-        duration,
-        data ? 1 : 0
+        duration
       );
 
       // Cache result if enabled
@@ -317,7 +310,7 @@ class OptimizedSupabaseClient {
 
     } catch (error) {
       const duration = Date.now() - startTime;
-      await performanceMonitor.trackError(error as Error, { functionName, params });
+      AdTopiaMonitoring.trackPerformance('database_error', 0);
       return { data: null, error, performance: { duration } };
     }
   }

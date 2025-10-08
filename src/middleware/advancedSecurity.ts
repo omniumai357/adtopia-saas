@@ -560,14 +560,14 @@ export class AdvancedSecurityMiddleware {
     const maxAge = 24 * 60 * 60 * 1000; // 24 hours
 
     // Clean up failed attempts
-    for (const [key, attempts] of this.failedAttempts) {
+    for (const [key, attempts] of Array.from(this.failedAttempts.entries())) {
       if (now - attempts.lastAttempt.getTime() > maxAge) {
         this.failedAttempts.delete(key);
       }
     }
 
     // Clean up suspicious activity
-    for (const [key, events] of this.suspiciousActivity) {
+    for (const [key, events] of Array.from(this.suspiciousActivity.entries())) {
       const recentEvents = events.filter(
         event => now - event.timestamp.getTime() < maxAge
       );

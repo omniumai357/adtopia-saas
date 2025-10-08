@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import AgencyCacheManager from '@/src/utils/agencyCache';
-import { performanceMonitor } from '@/lib/monitoring';
+import { AdTopiaMonitoring } from '@/src/lib/monitoring';
 
 // Agency cache API endpoints for AdTopia scaling
 export async function GET(request: NextRequest) {
@@ -75,11 +75,9 @@ export async function GET(request: NextRequest) {
     }
 
     const duration = Date.now() - startTime;
-    await performanceMonitor.trackApiResponse(
+    AdTopiaMonitoring.trackPerformance(
       `/api/agency/cache?action=${action}`,
-      'GET',
-      duration,
-      200
+      duration
     );
 
     return NextResponse.json({
@@ -92,7 +90,10 @@ export async function GET(request: NextRequest) {
 
   } catch (error) {
     const duration = Date.now() - startTime;
-    await performanceMonitor.trackError(error as Error, { action: 'cache_get' });
+    AdTopiaMonitoring.trackPerformance(
+      `/api/agency/cache`,
+      duration
+    );
 
     return NextResponse.json(
       {
@@ -202,11 +203,9 @@ export async function POST(request: NextRequest) {
     }
 
     const duration = Date.now() - startTime;
-    await performanceMonitor.trackApiResponse(
+    AdTopiaMonitoring.trackPerformance(
       `/api/agency/cache?action=${action}`,
-      'POST',
-      duration,
-      200
+      duration
     );
 
     return NextResponse.json({
@@ -219,7 +218,7 @@ export async function POST(request: NextRequest) {
 
   } catch (error) {
     const duration = Date.now() - startTime;
-    await performanceMonitor.trackError(error as Error, { action: 'cache_post' });
+    AdTopiaMonitoring.trackPerformance('/api/agency/cache', duration);
 
     return NextResponse.json(
       {
@@ -250,11 +249,9 @@ export async function DELETE(request: NextRequest) {
     await AgencyCacheManager.invalidateAgencyCache(agencyId);
 
     const duration = Date.now() - startTime;
-    await performanceMonitor.trackApiResponse(
+    AdTopiaMonitoring.trackPerformance(
       `/api/agency/cache?agencyId=${agencyId}`,
-      'DELETE',
-      duration,
-      200
+      duration
     );
 
     return NextResponse.json({
@@ -267,7 +264,7 @@ export async function DELETE(request: NextRequest) {
 
   } catch (error) {
     const duration = Date.now() - startTime;
-    await performanceMonitor.trackError(error as Error, { action: 'cache_delete' });
+    AdTopiaMonitoring.trackPerformance('/api/agency/cache', duration);
 
     return NextResponse.json(
       {
