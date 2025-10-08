@@ -1,9 +1,10 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { createClient } from '@supabase/supabase-js';
 import { useABTest } from '@/hooks/useABTest';
+import { useABConversionTracking } from '@/hooks/useABConversionTracking';
 
 interface OnboardingEmailFormProps {
   onSubmit?: (email: string) => void;
@@ -30,6 +31,9 @@ export function OnboardingEmailForm({ onSubmit, className = '' }: OnboardingEmai
   const [error, setError] = useState('');
   
   const { variant, isVariantA, isVariantB } = useABTest();
+  const { trackCTADropoff, trackCTAClick } = useABConversionTracking();
+  const formRef = useRef<HTMLFormElement>(null);
+  const dropoffTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   // Track A/B test exposure on mount
   useEffect(() => {
@@ -57,6 +61,47 @@ export function OnboardingEmailForm({ onSubmit, className = '' }: OnboardingEmai
     trackExposure();
   }, [variant]);
 
+  // Track drop-off on form blur/abandon
+  useEffect(() => {
+    const handleBeforeUnload = () => {
+      if (email && !isSubmitted) {
+        trackCTADropoff({
+          email: email,
+          dropoff_reason: 'page_unload',
+          form_state: 'incomplete'
+        });
+      }
+    };
+
+    const handleVisibilityChange = () => {
+      if (document.hidden && email && !isSubmitted) {
+        // Set a timeout to track dropoff if user doesn't return within 30 seconds
+        dropoffTimeoutRef.current = setTimeout(() => {
+          trackCTADropoff({
+            email: email,
+            dropoff_reason: 'tab_switch',
+            form_state: 'incomplete'
+          });
+        }, 30000);
+      } else if (!document.hidden && dropoffTimeoutRef.current) {
+        // Clear timeout if user returns
+        clearTimeout(dropoffTimeoutRef.current);
+        dropoffTimeoutRef.current = null;
+      }
+    };
+
+    window.addEventListener('beforeunload', handleBeforeUnload);
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+      if (dropoffTimeoutRef.current) {
+        clearTimeout(dropoffTimeoutRef.current);
+      }
+    };
+  }, [email, isSubmitted, trackCTADropoff]);
+
   const validateEmail = (email: string): boolean => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
@@ -79,12 +124,19 @@ export function OnboardingEmailForm({ onSubmit, className = '' }: OnboardingEmai
     setIsSubmitting(true);
 
     try {
+      // Track CTA click before submission
+      await trackCTAClick({
+        email: email,
+        click_timestamp: new Date().toISOString(),
+        form_state: 'submitting'
+      });
+
       // Call the onSubmit prop if provided
       if (onSubmit) {
         await onSubmit(email);
       }
 
-      // Track CTA click
+      // Track CTA click with legacy function for backward compatibility
       const { data: { user } } = await supabase.auth.getUser();
       
       await supabase.functions.invoke('track_ab_exposure', {
