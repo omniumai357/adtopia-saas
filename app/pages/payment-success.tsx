@@ -21,14 +21,14 @@ export default function PaymentSuccess() {
 
   useEffect(() => {
     // Extract payment data from URL parameters
-    const sessionId = searchParams.get('session_id');
-    const productName = searchParams.get('product_name');
-    const amount = searchParams.get('amount');
-    const customerEmail = searchParams.get('customer_email');
+    const sessionId = searchParams?.get('session_id');
+    const productName = searchParams?.get('product_name');
+    const amount = searchParams?.get('amount');
+    const customerEmail = searchParams?.get('customer_email');
 
     if (sessionId) {
       // Verify payment with Stripe (in production, this would be a server-side call)
-      verifyPayment(sessionId, productName, amount, customerEmail);
+      verifyPayment(sessionId, productName || null, amount || null, customerEmail || null);
     } else {
       // No session ID - show generic success
       setPaymentData({ status: 'verified' });
