@@ -1,62 +1,55 @@
 import { useState, useEffect } from 'react';
 import Cookies from 'js-cookie';
 
-type ABVariant = 'A' | 'B';
-
-interface UseABTestReturn {
-  variant: ABVariant;
+interface ABTestResult {
+  variant: 'A' | 'B';
   isVariantA: boolean;
   isVariantB: boolean;
 }
 
-const COOKIE_NAME = 'ab_variant';
-const COOKIE_EXPIRY_DAYS = 365; // 1 year
-
 /**
- * Custom React hook for A/B testing with persistent assignment
- * Assigns users to variant 'A' or 'B' with 50/50 split
- * Uses js-cookie for persistent assignment across sessions
- * Server-side safe to prevent hydration mismatches
+ * A/B Test Hook for Onboarding CTA Testing
+ * Assigns users to variants A or B with persistent cookie-based assignment
+ * Server-side safe with no SSR mismatches
  */
-export function useABTest(): UseABTestReturn {
-  const [variant, setVariant] = useState<ABVariant>('A'); // Default to 'A' for SSR
-  const [isClient, setIsClient] = useState(false);
+export function useABTest(): ABTestResult {
+  const [variant, setVariant] = useState<'A' | 'B'>('A'); // Default to A for SSR
+  const [isHydrated, setIsHydrated] = useState(false);
 
   useEffect(() => {
-    // Mark as client-side to prevent SSR mismatches
-    setIsClient(true);
-
-    // Check for existing cookie
-    const existingVariant = Cookies.get(COOKIE_NAME) as ABVariant;
+    // Only run on client side after hydration
+    setIsHydrated(true);
+    
+    const cookieName = 'ab_variant';
+    const existingVariant = Cookies.get(cookieName) as 'A' | 'B' | undefined;
     
     if (existingVariant && (existingVariant === 'A' || existingVariant === 'B')) {
-      // User already assigned, use existing variant
+      // User already has a variant assigned
       setVariant(existingVariant);
       
       if (process.env.NODE_ENV === 'development') {
-        console.log(`[AB Test] Using existing variant: ${existingVariant}`);
+        console.log(`[A/B Test] Existing variant: ${existingVariant}`);
       }
     } else {
-      // No existing assignment, randomly assign 50/50
-      const randomVariant: ABVariant = Math.random() < 0.5 ? 'A' : 'B';
+      // Assign new variant 50/50 split
+      const newVariant = Math.random() < 0.5 ? 'A' : 'B';
+      setVariant(newVariant);
       
       // Set cookie with 1-year expiry
-      Cookies.set(COOKIE_NAME, randomVariant, {
-        expires: COOKIE_EXPIRY_DAYS,
+      Cookies.set(cookieName, newVariant, { 
+        expires: 365,
         sameSite: 'lax',
         secure: process.env.NODE_ENV === 'production'
       });
       
-      setVariant(randomVariant);
-      
       if (process.env.NODE_ENV === 'development') {
-        console.log(`[AB Test] New assignment: ${randomVariant}`);
+        console.log(`[A/B Test] New variant assigned: ${newVariant}`);
       }
     }
   }, []);
 
-  // Return default values during SSR to prevent hydration mismatches
-  if (!isClient) {
+  // Return default values during SSR to prevent mismatches
+  if (!isHydrated) {
     return {
       variant: 'A',
       isVariantA: true,
@@ -72,46 +65,41 @@ export function useABTest(): UseABTestReturn {
 }
 
 /**
- * Clear the A/B test cookie for testing purposes
- * Useful for development and testing different variants
+ * Clear A/B test cookie for testing purposes
+ * Only works on client side
  */
 export function clearABTestCookie(): void {
-  Cookies.remove(COOKIE_NAME);
+  if (typeof window === 'undefined') {
+    console.warn('[A/B Test] clearABTestCookie can only be called on client side');
+    return;
+  }
+  
+  Cookies.remove('ab_variant');
   
   if (process.env.NODE_ENV === 'development') {
-    console.log('[AB Test] Cookie cleared - next page load will assign new variant');
+    console.log('[A/B Test] Cookie cleared - next page load will assign new variant');
   }
 }
 
 /**
- * Get the current A/B test variant without triggering assignment
- * Useful for analytics or logging without using the hook
+ * Force a specific variant for testing (development only)
  */
-export function getABTestVariant(): ABVariant | null {
-  if (typeof window === 'undefined') {
-    return null; // Server-side safe
+export function forceABTestVariant(variant: 'A' | 'B'): void {
+  if (process.env.NODE_ENV !== 'development') {
+    console.warn('[A/B Test] forceABTestVariant only works in development');
+    return;
   }
   
-  const variant = Cookies.get(COOKIE_NAME) as ABVariant;
-  return (variant === 'A' || variant === 'B') ? variant : null;
-}
-
-/**
- * Force assign a specific variant (for testing purposes)
- * @param variant - The variant to assign ('A' or 'B')
- */
-export function forceABTestVariant(variant: ABVariant): void {
   if (typeof window === 'undefined') {
-    return; // Server-side safe
+    console.warn('[A/B Test] forceABTestVariant can only be called on client side');
+    return;
   }
   
-  Cookies.set(COOKIE_NAME, variant, {
-    expires: COOKIE_EXPIRY_DAYS,
+  Cookies.set('ab_variant', variant, { 
+    expires: 365,
     sameSite: 'lax',
-    secure: process.env.NODE_ENV === 'production'
+    secure: false
   });
   
-  if (process.env.NODE_ENV === 'development') {
-    console.log(`[AB Test] Forced assignment: ${variant}`);
-  }
+  console.log(`[A/B Test] Forced variant: ${variant} - refresh page to see changes`);
 }
