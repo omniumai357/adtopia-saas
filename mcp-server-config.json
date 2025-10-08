@@ -1,0 +1,245 @@
+{
+  "mcpServers": {
+    "adtopia-revenue-agent": {
+      "command": "node",
+      "args": ["dist/agents/mcp-server.js"],
+      "env": {
+        "NODE_ENV": "production",
+        "ADTOPIA_API_KEY": "${ADTOPIA_API_KEY}",
+        "SUPABASE_URL": "${SUPABASE_URL}",
+        "SUPABASE_SERVICE_ROLE_KEY": "${SUPABASE_SERVICE_ROLE_KEY}",
+        "ZAPIER_WEBHOOK_URL": "${ZAPIER_WEBHOOK_URL}",
+        "GAMMA_API_KEY": "${GAMMA_API_KEY}"
+      }
+    }
+  },
+  "tools": {
+    "analyze-lead": {
+      "description": "Analyze lead context for optimal ad generation strategy",
+      "parameters": {
+        "leadData": {
+          "type": "object",
+          "description": "Lead business data including name, niche, location, features, pain points",
+          "required": true
+        },
+        "historicalPerformance": {
+          "type": "array",
+          "description": "Historical performance data for similar leads",
+          "required": false
+        },
+        "marketContext": {
+          "type": "string",
+          "description": "Current market context and trends",
+          "required": false
+        }
+      }
+    },
+    "generate-ad-content": {
+      "description": "Generate optimized ad content based on analysis",
+      "parameters": {
+        "niche": {
+          "type": "string",
+          "description": "Business niche (movers, plumbers, spas, hvac)",
+          "required": true
+        },
+        "urgencyLevel": {
+          "type": "string",
+          "description": "Urgency level (low, medium, high, critical)",
+          "required": true
+        },
+        "valueProposition": {
+          "type": "string",
+          "description": "Primary value proposition (cost_savings, time_efficiency, quality_assurance, trust_signals)",
+          "required": true
+        },
+        "location": {
+          "type": "string",
+          "description": "Business location for local optimization",
+          "required": false
+        },
+        "marketAnalysis": {
+          "type": "object",
+          "description": "Local market analysis data",
+          "required": false
+        }
+      }
+    },
+    "deploy-to-platform": {
+      "description": "Deploy ad content to specified platform",
+      "parameters": {
+        "content": {
+          "type": "object",
+          "description": "Generated ad content to deploy",
+          "required": true
+        },
+        "platform": {
+          "type": "string",
+          "description": "Target platform (gamma, craigslist, facebook, instagram)",
+          "required": true
+        },
+        "schedule": {
+          "type": "string",
+          "description": "Deployment schedule (immediate, scheduled, batch)",
+          "required": false
+        },
+        "targetAudience": {
+          "type": "string",
+          "description": "Target audience description",
+          "required": false
+        }
+      }
+    },
+    "track-performance": {
+      "description": "Track and analyze performance metrics",
+      "parameters": {
+        "deploymentId": {
+          "type": "string",
+          "description": "Unique deployment identifier",
+          "required": true
+        },
+        "metrics": {
+          "type": "object",
+          "description": "Performance metrics (impressions, clicks, conversions, revenue, roi)",
+          "required": true
+        },
+        "timeframe": {
+          "type": "string",
+          "description": "Performance tracking timeframe",
+          "required": false
+        }
+      }
+    },
+    "optimize-strategy": {
+      "description": "Optimize strategy based on performance data",
+      "parameters": {
+        "currentPerformance": {
+          "type": "object",
+          "description": "Current performance metrics",
+          "required": true
+        },
+        "historicalData": {
+          "type": "array",
+          "description": "Historical performance data for comparison",
+          "required": false
+        },
+        "marketTrends": {
+          "type": "object",
+          "description": "Current market trends and insights",
+          "required": false
+        }
+      }
+    },
+    "analyze-market": {
+      "description": "Analyze local market conditions and opportunities",
+      "parameters": {
+        "location": {
+          "type": "string",
+          "description": "Geographic location to analyze",
+          "required": true
+        },
+        "niche": {
+          "type": "string",
+          "description": "Business niche to analyze",
+          "required": true
+        },
+        "timeframe": {
+          "type": "string",
+          "description": "Analysis timeframe (7d, 30d, 90d, 1y)",
+          "required": false
+        }
+      }
+    },
+    "generate-upsell": {
+      "description": "Generate upsell offers based on client engagement",
+      "parameters": {
+        "clientId": {
+          "type": "string",
+          "description": "Client identifier",
+          "required": true
+        },
+        "engagementLevel": {
+          "type": "string",
+          "description": "Client engagement level (low, medium, high, premium)",
+          "required": true
+        },
+        "currentOffer": {
+          "type": "string",
+          "description": "Current offer tier",
+          "required": false
+        }
+      }
+    }
+  },
+  "resources": {
+    "adtopia-database": {
+      "description": "AdTopia business database with leads, performance, and analytics",
+      "type": "database",
+      "connection": {
+        "type": "supabase",
+        "url": "${SUPABASE_URL}",
+        "key": "${SUPABASE_SERVICE_ROLE_KEY}"
+      }
+    },
+    "gamma-api": {
+      "description": "Gamma AI API for content generation",
+      "type": "api",
+      "connection": {
+        "type": "rest",
+        "baseUrl": "https://api.gamma.app",
+        "key": "${GAMMA_API_KEY}"
+      }
+    },
+    "zapier-webhooks": {
+      "description": "Zapier webhook integration for automation",
+      "type": "webhook",
+      "connection": {
+        "type": "http",
+        "url": "${ZAPIER_WEBHOOK_URL}"
+      }
+    }
+  },
+  "capabilities": {
+    "reasoning": {
+      "description": "AI reasoning for dynamic decision making",
+      "enabled": true,
+      "model": "claude-3.5-sonnet"
+    },
+    "learning": {
+      "description": "Self-learning and optimization based on performance data",
+      "enabled": true,
+      "updateFrequency": "daily"
+    },
+    "scaling": {
+      "description": "Automatic scaling based on demand and performance",
+      "enabled": true,
+      "maxConcurrency": 100
+    },
+    "monitoring": {
+      "description": "Real-time monitoring and alerting",
+      "enabled": true,
+      "metrics": ["roi", "conversion_rate", "revenue", "performance"]
+    }
+  },
+  "deployment": {
+    "environment": "production",
+    "region": "us-west-2",
+    "scaling": {
+      "minInstances": 2,
+      "maxInstances": 50,
+      "targetCPU": 70
+    },
+    "monitoring": {
+      "enabled": true,
+      "alerts": {
+        "highROI": {
+          "threshold": 10000,
+          "action": "scale_up"
+        },
+        "lowPerformance": {
+          "threshold": 1000,
+          "action": "optimize"
+        }
+      }
+    }
+  }
+}
