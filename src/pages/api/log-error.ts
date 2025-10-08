@@ -45,8 +45,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     res.status(200).json({ 
       success: true, 
-      logged: true,
-      error_id: data?.[0]?.id || 'unknown'
+      logged: true
     });
   } catch (error) {
     console.error('Error logging API failed:', error);
