@@ -1,0 +1,18 @@
+ADTOPIA AUTOMATION SUMMARY
+========================================
+
+Business: R Movers
+Niche: movers
+Location: Modesto CA
+Years: 14
+
+ROI PROJECTION:
+Monthly ROI: $17600.0
+ROI %: 11733.3%
+Uplift: 30.0x
+
+PROMPTS GENERATED:
+Urgency Variants: 5
+Value Landing: 1
+Outreach Emails: 2
+Total: 8
