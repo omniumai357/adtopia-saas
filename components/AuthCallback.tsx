@@ -42,11 +42,8 @@ export function AuthCallback({ onSignupComplete, redirectTo = '/dashboard' }: Au
           // Track signup completion for A/B testing
           await trackSignupComplete({
             user_id: session.user.id,
-            email: session.user.email,
-            signup_method: 'email',
-            signup_timestamp: new Date().toISOString(),
-            user_metadata: session.user.user_metadata || {},
-            app_metadata: session.user.app_metadata || {}
+            variant: 'A', // Default variant, will be overridden by A/B test hook
+            signup_timestamp: new Date().toISOString()
           });
 
           // Call the onSignupComplete callback if provided
@@ -79,11 +76,8 @@ export function AuthCallback({ onSignupComplete, redirectTo = '/dashboard' }: Au
           // Track signup completion when user signs in
           await trackSignupComplete({
             user_id: session.user.id,
-            email: session.user.email,
-            signup_method: 'email',
-            signup_timestamp: new Date().toISOString(),
-            user_metadata: session.user.user_metadata || {},
-            app_metadata: session.user.app_metadata || {}
+            variant: 'A', // Default variant, will be overridden by A/B test hook
+            signup_timestamp: new Date().toISOString()
           });
 
           if (onSignupComplete) {

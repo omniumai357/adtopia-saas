@@ -1,0 +1,120 @@
+{
+  "agent_profile": "Senior SaaS System Auditor AI",
+  "context": {
+    "platforms": [
+      "GitHub",
+      "Supabase",
+      "Cursor",
+      "Vercel"
+    ],
+    "repos": [
+      "main",
+      "production"
+    ],
+    "paths": {
+      "schemas": ["supabase/migrations/", "supabase/functions/"],
+      "env_files": [".env.local", ".env.production", "supabase/.env"],
+      "ci": [".github/workflows/"]
+    }
+  },
+  "tasks": [
+    {
+      "id": "repo_coherence",
+      "title": "Repository Coherence Test",
+      "steps": [
+        "Fetch latest commit hashes for main and production branches.",
+        "Diff app code, migration scripts, environment files, and CI workflows between branches.",
+        "Report any drift, missing files, or out-of-sync patterns."
+      ]
+    },
+    {
+      "id": "supabase_sync",
+      "title": "Supabase Sync Challenge",
+      "steps": [
+        "Extract Supabase live schema via API or CLI.",
+        "Load local schema definitions (.sql and/or Prisma).",
+        "Compare table structures, indexes, RLS policies.",
+        "Flag orphan tables or discrepancies.",
+        "Output fix instructions for detected mismatches."
+      ]
+    },
+    {
+      "id": "cursor_delta",
+      "title": "Cursor IDE Delta Analysis",
+      "steps": [
+        "Scan for uncommitted changes in Cursor workspace.",
+        "Detect unsynced configuration or build files.",
+        "Log all delta findings and offer commit/stash instructions."
+      ]
+    },
+    {
+      "id": "vercel_deployments",
+      "title": "Vercel Deployment Map",
+      "steps": [
+        "Fetch deployment logs for preview and production.",
+        "Identify build errors, failed dependencies, warnings.",
+        "Highlight missing or invalid environment variables.",
+        "Suggest or trigger re-deploy as required."
+      ]
+    },
+    {
+      "id": "cross_system_ping",
+      "title": "Cross-System Ping Test",
+      "steps": [
+        "Trigger test commits and observe webhook/actions propagation",
+        "Invoke Supabase edge functions via automated script.",
+        "Chronicle delay, event drop, or chain breaks."
+      ]
+    },
+    {
+      "id": "data_pipeline_cohesion",
+      "title": "Data Pipeline Cohesion",
+      "steps": [
+        "Execute CRUD test suite through frontend API endpoints.",
+        "Benchmark Supabase RPC latency; log if >300ms.",
+        "Validate accuracy/integrity of data round trips."
+      ]
+    },
+    {
+      "id": "auto_heal_intelligence",
+      "title": "Auto-Heal Intelligence Test",
+      "steps": [
+        "Where errors are found, auto-propose file updates or config patches.",
+        "Suggest/execute token regeneration for broken secrets.",
+        "Trigger schema sync routines or set CI fix PRs."
+      ]
+    },
+    {
+      "id": "time_stress_simulation",
+      "title": "Time-Stress Simulation",
+      "steps": [
+        "Simulate 10k concurrent API, DB, and auth events over accelerated timeline.",
+        "Detect bottlenecks and degradation zones.",
+        "Summarize resilience metrics and weak points."
+      ]
+    },
+    {
+      "id": "human_invisible_vector",
+      "title": "Human-Invisible Vector Audit",
+      "steps": [
+        "Reverse data state checks: after intentional insert or update failures, probe for residual locks or partial data.",
+        "Scan dependency tree for shadowed or mismatched subversions.",
+        "Audit workspace/plugin state leaks not seen in typical testing."
+      ]
+    }
+  ],
+  "reporting": {
+    "summary_categories": [
+      "Healthy",
+      "Drift Detected",
+      "Remediated",
+      "Critical Faults"
+    ],
+    "require_auto_resolution": true,
+    "output_format": "json_report"
+  },
+  "meta": {
+    "run_mode": "automated",
+    "notification_hooks": ["slack", "email", "webhook"]
+  }
+}

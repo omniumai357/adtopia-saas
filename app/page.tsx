@@ -9,6 +9,7 @@ import Countdown from '../frontend-snippets/Countdown';
 import TrustBadges from '../frontend-snippets/TrustBadges';
 import PricingTiers from '../frontend-snippets/PricingTiers';
 import LandingLayout from '../src/components/LandingLayout';
+import AdCards from '../src/components/AdCards';
 
 interface GalleryImage {
   id: string;
@@ -77,6 +78,7 @@ export default function Home() {
         <Countdown deadline="2025-11-01T00:00:00Z" />
         <TrustBadges />
         <PricingTiers />
+        <AdCards language={language} />
       </LandingLayout>
     </>
   );

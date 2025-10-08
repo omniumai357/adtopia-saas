@@ -18,6 +18,12 @@ interface CTADropoffData {
   form_state: 'incomplete' | 'partial';
 }
 
+interface SignupCompleteData {
+  user_id: string;
+  variant: string;
+  signup_timestamp: string;
+}
+
 /**
  * A/B Test Conversion Tracking Hook
  * Tracks CTA clicks and drop-offs for conversion analysis
@@ -84,8 +90,35 @@ export function useABConversionTracking() {
     }
   }, []);
 
+  /**
+   * Track signup completion events
+   */
+  const trackSignupComplete = useCallback(async (data: SignupCompleteData) => {
+    try {
+      await supabase.functions.invoke('track_ab_conversion', {
+        body: {
+          user_id: data.user_id,
+          variant: data.variant,
+          event_type: 'signup_complete',
+          metadata: {
+            signup_timestamp: data.signup_timestamp,
+            page_url: typeof window !== 'undefined' ? window.location.href : null,
+            user_agent: typeof navigator !== 'undefined' ? navigator.userAgent : null
+          }
+        }
+      });
+
+      if (process.env.NODE_ENV === 'development') {
+        console.log('[A/B Test] Tracked signup complete:', data);
+      }
+    } catch (error) {
+      console.error('Failed to track signup complete:', error);
+    }
+  }, []);
+
   return {
     trackCTAClick,
-    trackCTADropoff
+    trackCTADropoff,
+    trackSignupComplete
   };
 }

@@ -1,0 +1,15 @@
+Build 5-slide Gamma deck for CoolFix Plumbing Modesto CA (plumbers services, transparent pricing, 14 yrs trusted). 
+Light bg, green #10B981 accents. Upload/integrate 12 real-job images [drain snakes, pipe fixes, wrench work—Slide 3: Clickable gallery enlarger w/ captions 'Modesto CA Drains Clogged in 1hr']. 
+Slide 1: Hero 'Stress-Free Plumbers in Modesto CA – Free Quote 60s!' w/ form (name/phone/issue desc → Stripe 'Book Now'). 
+Slide 2: Why Us grid—bullets from features + '14 Yrs Trusted, Competitive Pricing Starts'. 
+Slide 3: Gallery carousel (zooms, SEO captions 'Modesto CA Drains Clogged in 1hr'). 
+Slide 4: FAQs stack (- **Weekend Rates?**  Same day <2hrs response, no overtime
+- **Emergency?**  24/7 availability guaranteed, licensed pros
+- **Pricing?**  Transparent $89 diagnostic starts, no surprises
+- **Warranty?**  1-year on all work, parts & labor included
+- **Licensed?**  Fully certified & bonded, local experts). 
+Slide 5: CTA footer 'Book Now' tel (209) 809-8541/link coolfixplumbing.com + badges (20 Yrs Trusted, Licensed & Bonded, 24/7 Emergency, Eco-Friendly). 
+Meta: 'Pro plumbers Modesto CA | Drains Clogged Experts | Free Estimates'. 
+Mobile-first <2s load via Vercel tease. 
+Embed Google Map (Modesto CA coords: 37.6391,-121.0177). 
+Add upsell path: Post-quote 'Upgrade to Gold ($299: 20 custom ads + SEO audit)'.

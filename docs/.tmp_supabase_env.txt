@@ -1,0 +1,16 @@
+
+  
+   NAME                      | DIGEST                                                           
+  ---------------------------|------------------------------------------------------------------
+   "TWILIO_ADTOPIA_IO_KEY"   | f300563998995002868173d02d6dfc49ca015105f64a2d6d047d77d7c4810ba0 
+   "TWILIO_BIZBOX_HOST_KEY"  | 7ff2c59feeda8e14b0cab6ab893b1b1ef1f0d1bd3934c83c1acc95e63a6402e5 
+   GAMMA_API_KEY             | 7a1a9493aeae99c66576cc96116867c463836424450e40ee29efac82685a2f66 
+   OPENAI_API_KEY            | 94676b342d8b884901975f02df10dd71c5b10c121d8c88ce587d6aba48a75fa6 
+   RESEND_API_KEY            | 844c00597686c90c0c0bf105a30fa641f15c277faa445264a98a12ba8f7e55ec 
+   STRIPE_SECRET_KEY         | 6868bd92e830744f72ccc53e6d6c7229ab1841b8c772f0b4234ea837d1dc6797 
+   STRIPE_WEBHOOK_SECRET     | 759bf5cb9a4d8cfb16eeb3b1f5bc98e49a2672f1ae0f57cfab5e5bdf0abeeb18 
+   SUPABASE_ANON_KEY         | 1970d439d89252ccc35dfa8eb100db9e51871df1d5f53636f6e59d61b9e2e59f 
+   SUPABASE_DB_URL           | 0e8d83128055c9fc2404ecd9b16ac6069f5b570d983dffd33e8b4b8692be1cea 
+   SUPABASE_SERVICE_ROLE_KEY | eacb6c54b7f49cf9056eed995a7c530f13ba9eac8bfe75f2e0cfb0785fee302a 
+   SUPABASE_URL              | 9cad869336750cd60a134f5b3cae844479ad4e068fca5af3f98b478075c279fb 
+

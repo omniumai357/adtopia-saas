@@ -32,7 +32,7 @@ export async function GET() {
     console.error('Error fetching agency sales:', error);
     return NextResponse.json({
       success: false,
-      error: error.message,
+      error: error instanceof Error ? error.message : 'Unknown error',
       sales: []
     }, { status: 500 });
   }
@@ -73,7 +73,7 @@ export async function POST(request: NextRequest) {
     console.error('Error tracking agency commission:', error);
     return NextResponse.json({
       success: false,
-      error: error.message
+      error: error instanceof Error ? error.message : 'Unknown error'
     }, { status: 500 });
   }
 }

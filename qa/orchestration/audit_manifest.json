@@ -1,0 +1,567 @@
+{
+  "manifest_version": "2.1.0",
+  "generated_at": "2025-01-07T23:38:28Z",
+  "owner": "omniumai357",
+  "project": "AdTopia Revenue Empire",
+  "agent_profile": {
+    "name": "AdTopia Senior SaaS System Auditor AI",
+    "role": "Multi-Platform Revenue System Guardian",
+    "capabilities": [
+      "Revenue pipeline validation",
+      "Cross-platform coherence testing",
+      "Auto-healing system failures",
+      "Performance bottleneck detection",
+      "Security vulnerability scanning",
+      "Agency partner system monitoring"
+    ],
+    "authority_level": "production_write_access",
+    "escalation_threshold": "revenue_impact"
+  },
+  "context": {
+    "project_meta": {
+      "name": "AdTopia - AI Ad Generation Platform",
+      "revenue_target": "$600K ARR",
+      "current_monthly": "$2,500 emergency target",
+      "agency_partners": 6,
+      "user_base": "SMB service providers",
+      "tech_stack": ["React", "Supabase", "Stripe", "Vercel", "TypeScript"]
+    },
+    "platforms": {
+      "github": {
+        "org": "omniumai357",
+        "primary_repo": "ad-card-canvas",
+        "branches": ["main", "production", "development"],
+        "protected_branches": ["main", "production"],
+        "required_checks": ["app-health", "payment-flow", "security-scan"]
+      },
+      "supabase": {
+        "project_ref": "auyjsmtnfnnapjdrzhea",
+        "org": "Omnia Group",
+        "region": "us-east-1",
+        "tier": "Pro",
+        "critical_tables": [
+          "user_access", "agency_partners", "agency_sales", 
+          "purchases", "subscriptions", "stripe_products_log"
+        ],
+        "edge_functions": [
+          "stripe-webhook", "sync-stripe-products-hardened",
+          "agency-onboarding", "send-purchase-confirmation"
+        ]
+      },
+      "vercel": {
+        "team": "omnia-group",
+        "projects": ["adtopia-saas", "bizbox-ai"],
+        "domains": ["adtopia.io", "bizbox.systems"],
+        "deployment_targets": ["preview", "production"]
+      },
+      "stripe": {
+        "mode": "live",
+        "products": 9,
+        "payment_links": 11,
+        "webhooks": ["checkout.session.completed", "invoice.payment_succeeded"],
+        "revenue_tracking": true
+      }
+    },
+    "paths": {
+      "schemas": [
+        "supabase/migrations/",
+        "supabase/functions/",
+        "src/types/database.ts"
+      ],
+      "env_files": [
+        ".env.local",
+        ".env.production",
+        "supabase/.env"
+      ],
+      "ci": [
+        ".github/workflows/",
+        ".github/dependabot.yml",
+        ".husky/"
+      ],
+      "revenue_critical": [
+        "src/components/marketing/PricingCard.tsx",
+        "src/pages/PaymentSuccess.tsx",
+        "src/utils/stripe.ts",
+        "supabase/functions/stripe-webhook/"
+      ]
+    }
+  },
+  "tasks": [
+    {
+      "id": "revenue_pipeline_health",
+      "title": "Revenue Pipeline Health Check",
+      "priority": "CRITICAL",
+      "frequency": "every_30_minutes",
+      "timeout": "120s",
+      "steps": [
+        {
+          "action": "test_payment_links",
+          "command": "curl -s -o /dev/null -w '%{http_code}' https://buy.stripe.com/test_payment_link",
+          "expected": "200",
+          "retry_count": 3
+        },
+        {
+          "action": "validate_stripe_products",
+          "command": "curl -X POST 'https://auyjsmtnfnnapjdrzhea.supabase.co/functions/v1/sync-stripe-products-hardened' -H 'Authorization: Bearer $SUPABASE_SERVICE_ROLE_KEY'",
+          "expected_response": "{\"success\":true,\"summary\":{\"total\":9}}",
+          "auto_heal": "redeploy_function_on_failure"
+        },
+        {
+          "action": "test_end_to_end_purchase",
+          "command": "node qa/e2e-payment-test.mjs --card=4242424242424242 --amount=2900",
+          "expected": "purchase_confirmed",
+          "notification_on_failure": "immediate_alert"
+        },
+        {
+          "action": "verify_agency_commissions",
+          "sql": "SELECT COUNT(*) FROM agency_sales WHERE created_at > NOW() - INTERVAL '1 hour'",
+          "expected_min": 0,
+          "auto_heal": "recalculate_pending_commissions"
+        }
+      ],
+      "success_criteria": {
+        "all_payment_links_healthy": true,
+        "stripe_sync_operational": true,
+        "purchase_flow_functional": true,
+        "commission_tracking_accurate": true
+      }
+    },
+    {
+      "id": "repo_coherence_advanced",
+      "title": "Advanced Repository Coherence Test",
+      "priority": "HIGH",
+      "frequency": "on_commit",
+      "steps": [
+        {
+          "action": "fetch_latest_commits",
+          "commands": [
+            "git fetch origin main",
+            "git fetch origin production",
+            "git log --oneline main..production",
+            "git log --oneline production..main"
+          ],
+          "analysis": "detect_branch_drift"
+        },
+        {
+          "action": "validate_migration_consistency",
+          "command": "supabase db diff --schema public --file temp_diff.sql",
+          "expected": "no_differences",
+          "auto_heal": "apply_missing_migrations"
+        },
+        {
+          "action": "check_env_var_parity",
+          "script": "node scripts/compare-env-files.mjs",
+          "expected": "all_critical_vars_present",
+          "critical_vars": [
+            "VITE_SUPABASE_URL",
+            "VITE_SUPABASE_ANON_KEY", 
+            "STRIPE_SECRET_KEY",
+            "STRIPE_WEBHOOK_SECRET"
+          ]
+        },
+        {
+          "action": "validate_package_lock_integrity",
+          "command": "npm audit --audit-level=high",
+          "expected": "0_vulnerabilities",
+          "auto_heal": "npm_audit_fix"
+        }
+      ]
+    },
+    {
+      "id": "supabase_sync_comprehensive",
+      "title": "Comprehensive Supabase Sync Validation",
+      "priority": "HIGH",
+      "frequency": "hourly",
+      "steps": [
+        {
+          "action": "extract_live_schema",
+          "command": "supabase db dump --schema-only --project-ref auyjsmtnfnnapjdrzhea",
+          "output_file": "temp/live_schema.sql"
+        },
+        {
+          "action": "compare_local_migrations",
+          "script": "node scripts/schema-diff-analyzer.mjs",
+          "inputs": ["temp/live_schema.sql", "supabase/migrations/"],
+          "output": "schema_diff_report.json"
+        },
+        {
+          "action": "validate_rls_policies",
+          "sql": "SELECT schemaname, tablename, policyname, permissive FROM pg_policies WHERE schemaname = 'public'",
+          "expected_count": "> 20",
+          "validate_critical_policies": [
+            "agency_partners_admin_access",
+            "agency_sales_own_data",
+            "user_access_select_policy"
+          ]
+        },
+        {
+          "action": "test_edge_function_health",
+          "commands": [
+            "curl -f https://auyjsmtnfnnapjdrzhea.supabase.co/functions/v1/stripe-webhook",
+            "curl -f https://auyjsmtnfnnapjdrzhea.supabase.co/functions/v1/agency-onboarding"
+          ],
+          "expected": "all_functions_responding",
+          "auto_heal": "redeploy_failing_functions"
+        },
+        {
+          "action": "validate_cron_jobs",
+          "sql": "SELECT jobname, schedule, active FROM cron.job WHERE active = true",
+          "expected_jobs": [
+            "agency_monthly_reset",
+            "agency_tier_review", 
+            "cleanup_idempotency_tables"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cursor_workspace_sync",
+      "title": "Cursor IDE Delta Analysis & Sync",
+      "priority": "MEDIUM",
+      "frequency": "on_workspace_change",
+      "steps": [
+        {
+          "action": "scan_uncommitted_changes",
+          "command": "git status --porcelain",
+          "analysis": "categorize_changes_by_impact",
+          "auto_actions": {
+            "config_changes": "auto_commit_if_safe",
+            "critical_files": "prompt_user_review",
+            "temp_files": "auto_stash"
+          }
+        },
+        {
+          "action": "detect_cursor_specific_files",
+          "paths": [
+            ".cursorrules",
+            ".cursor/",
+            "cursor.config.json"
+          ],
+          "auto_sync": true
+        },
+        {
+          "action": "validate_build_consistency",
+          "command": "npm run build",
+          "expected": "build_success",
+          "auto_heal": "npm_install_on_failure"
+        },
+        {
+          "action": "check_typescript_coherence",
+          "command": "npx tsc --noEmit",
+          "expected": "no_type_errors",
+          "auto_heal": "regenerate_types_from_supabase"
+        }
+      ]
+    },
+    {
+      "id": "vercel_deployment_optimization",
+      "title": "Vercel Deployment Pipeline Optimization",
+      "priority": "HIGH",
+      "frequency": "on_deploy",
+      "steps": [
+        {
+          "action": "fetch_deployment_logs",
+          "command": "vercel logs --project=adtopia-saas --limit=50",
+          "analysis": "detect_error_patterns"
+        },
+        {
+          "action": "validate_environment_variables",
+          "command": "vercel env ls --project=adtopia-saas",
+          "required_vars": [
+            "VITE_SUPABASE_URL",
+            "VITE_SUPABASE_ANON_KEY",
+            "VITE_STRIPE_PUBLISHABLE_KEY"
+          ],
+          "auto_heal": "sync_missing_vars_from_vault"
+        },
+        {
+          "action": "performance_benchmark",
+          "script": "node scripts/lighthouse-audit.mjs",
+          "targets": [
+            "https://adtopia.io/",
+            "https://adtopia.io/pricing",
+            "https://adtopia.io/app"
+          ],
+          "thresholds": {
+            "performance": 90,
+            "accessibility": 95,
+            "best_practices": 90,
+            "seo": 95
+          }
+        },
+        {
+          "action": "test_edge_caching",
+          "command": "curl -I https://adtopia.io/ | grep -i cache",
+          "expected": "cache_headers_present"
+        }
+      ]
+    },
+    {
+      "id": "agency_partner_system_health",
+      "title": "Agency Partner Revenue System Health",
+      "priority": "CRITICAL",
+      "frequency": "every_15_minutes",
+      "steps": [
+        {
+          "action": "validate_commission_calculations",
+          "sql": "SELECT ap.agency_name, ap.commission_rate, SUM(ags.commission_earned) as total_earned FROM agency_partners ap LEFT JOIN agency_sales ags ON ap.id = ags.agency_id GROUP BY ap.id, ap.agency_name, ap.commission_rate",
+          "analysis": "verify_commission_accuracy"
+        },
+        {
+          "action": "check_tier_upgrade_automation",
+          "sql": "SELECT id, agency_name, total_sales, tier FROM agency_partners WHERE total_sales >= 20 AND tier = 'BRONZE'",
+          "expected": "no_results",
+          "auto_heal": "trigger_tier_upgrade_function"
+        },
+        {
+          "action": "test_agency_onboarding_flow",
+          "command": "curl -X POST 'https://auyjsmtnfnnapjdrzhea.supabase.co/functions/v1/agency-onboarding' -H 'Content-Type: application/json' -d '{\"agency_name\":\"Test Agency\",\"contact_email\":\"test@example.com\"}'",
+          "expected": "onboarding_success_response"
+        },
+        {
+          "action": "monitor_monthly_quotas",
+          "sql": "SELECT agency_name, monthly_quota, current_month_sales, ROUND((current_month_sales::decimal / monthly_quota::decimal) * 100, 2) as quota_percentage FROM agency_partners WHERE status = 'active'",
+          "alerts": {
+            "quota_exceeded": "celebrate_and_upgrade",
+            "quota_below_50_percent": "send_encouragement_email"
+          }
+        }
+      ]
+    },
+    {
+      "id": "cross_system_integration_test",
+      "title": "Cross-System Integration Stress Test",
+      "priority": "MEDIUM",
+      "frequency": "daily",
+      "steps": [
+        {
+          "action": "test_webhook_propagation",
+          "script": "node scripts/webhook-chain-test.mjs",
+          "flow": "stripe_event -> supabase_webhook -> database_update -> email_notification",
+          "timeout": "30s",
+          "expected": "complete_chain_success"
+        },
+        {
+          "action": "validate_api_rate_limits",
+          "script": "node scripts/rate-limit-test.mjs --concurrent=100 --duration=60s",
+          "endpoints": [
+            "/api/stripe/checkout",
+            "/api/agency/onboard",
+            "/api/user/access"
+          ],
+          "expected": "no_rate_limit_errors"
+        },
+        {
+          "action": "test_database_connection_pool",
+          "sql": "SELECT count(*) FROM pg_stat_activity WHERE state = 'active'",
+          "threshold": "< 80",
+          "auto_heal": "restart_connection_pool"
+        }
+      ]
+    },
+    {
+      "id": "security_vulnerability_scan",
+      "title": "Security Vulnerability Deep Scan",
+      "priority": "HIGH",
+      "frequency": "daily",
+      "steps": [
+        {
+          "action": "scan_dependencies",
+          "command": "npm audit --audit-level=moderate",
+          "auto_heal": "npm_audit_fix_safe"
+        },
+        {
+          "action": "validate_rls_policy_coverage",
+          "sql": "SELECT schemaname, tablename FROM information_schema.tables WHERE table_schema = 'public' AND table_name NOT IN (SELECT DISTINCT tablename FROM pg_policies WHERE schemaname = 'public')",
+          "expected": "no_unprotected_tables"
+        },
+        {
+          "action": "check_secret_exposure",
+          "script": "node scripts/secret-scanner.mjs",
+          "paths": ["src/", "public/", ".env*"],
+          "patterns": ["sk_live_", "sk_test_", "whsec_", "eyJhbGc"],
+          "expected": "no_exposed_secrets"
+        },
+        {
+          "action": "validate_cors_configuration",
+          "command": "curl -H 'Origin: https://malicious-site.com' https://auyjsmtnfnnapjdrzhea.supabase.co/rest/v1/",
+          "expected": "cors_properly_restricted"
+        }
+      ]
+    },
+    {
+      "id": "auto_heal_intelligence_advanced",
+      "title": "Advanced Auto-Heal Intelligence System",
+      "priority": "MEDIUM",
+      "frequency": "on_error_detection",
+      "steps": [
+        {
+          "action": "analyze_error_patterns",
+          "script": "node scripts/error-pattern-analyzer.mjs",
+          "inputs": ["logs/", "sentry/", "vercel-logs/"],
+          "ml_model": "error_prediction_v2"
+        },
+        {
+          "action": "auto_generate_fixes",
+          "conditions": {
+            "stripe_webhook_failure": {
+              "fix": "redeploy_webhook_function",
+              "verification": "test_webhook_signature"
+            },
+            "database_connection_error": {
+              "fix": "restart_connection_pool",
+              "verification": "test_database_query"
+            },
+            "environment_variable_missing": {
+              "fix": "sync_from_secure_vault",
+              "verification": "test_application_startup"
+            }
+          }
+        },
+        {
+          "action": "self_healing_validation",
+          "script": "node scripts/healing-verification.mjs",
+          "timeout": "300s",
+          "success_criteria": "all_systems_operational_post_heal"
+        }
+      ]
+    },
+    {
+      "id": "revenue_performance_analytics",
+      "title": "Revenue Performance Deep Analytics",
+      "priority": "HIGH",
+      "frequency": "hourly",
+      "steps": [
+        {
+          "action": "calculate_conversion_rates",
+          "sql": "WITH daily_stats AS (SELECT DATE(created_at) as date, COUNT(*) as purchases FROM purchases WHERE created_at > NOW() - INTERVAL '7 days' GROUP BY DATE(created_at)) SELECT AVG(purchases) as avg_daily_purchases FROM daily_stats",
+          "analysis": "trend_analysis"
+        },
+        {
+          "action": "monitor_agency_performance",
+          "sql": "SELECT ap.agency_name, COUNT(ags.id) as sales_today, SUM(ags.sale_amount) as revenue_today FROM agency_partners ap LEFT JOIN agency_sales ags ON ap.id = ags.agency_id AND DATE(ags.sale_date) = CURRENT_DATE GROUP BY ap.id, ap.agency_name ORDER BY revenue_today DESC",
+          "alerts": {
+            "top_performer": "send_recognition_email",
+            "zero_sales": "send_support_offer"
+          }
+        },
+        {
+          "action": "predict_monthly_revenue",
+          "script": "node scripts/revenue-predictor.mjs",
+          "model": "arima_forecasting",
+          "confidence_interval": 0.95
+        }
+      ]
+    }
+  ],
+  "reporting": {
+    "summary_categories": [
+      {
+        "name": "Healthy",
+        "description": "All systems operational, no issues detected",
+        "color": "green",
+        "notification": false
+      },
+      {
+        "name": "Drift Detected", 
+        "description": "Minor inconsistencies found, monitoring required",
+        "color": "yellow",
+        "notification": "slack"
+      },
+      {
+        "name": "Auto-Remediated",
+        "description": "Issues found and automatically fixed",
+        "color": "blue", 
+        "notification": "log_only"
+      },
+      {
+        "name": "Critical Faults",
+        "description": "Revenue-impacting issues requiring immediate attention",
+        "color": "red",
+        "notification": "immediate_alert_all_channels"
+      }
+    ],
+    "require_auto_resolution": true,
+    "auto_resolution_timeout": "300s",
+    "escalation_chain": [
+      "auto_heal_attempt",
+      "slack_notification",
+      "email_alert", 
+      "phone_call",
+      "emergency_contact"
+    ],
+    "output_formats": [
+      "json_report",
+      "slack_summary",
+      "email_digest",
+      "dashboard_metrics"
+    ],
+    "retention_policy": {
+      "detailed_logs": "30_days",
+      "summary_reports": "1_year", 
+      "critical_incidents": "permanent"
+    }
+  },
+  "meta": {
+    "run_mode": "automated",
+    "execution_environment": "cloud_scheduled",
+    "resource_limits": {
+      "max_execution_time": "900s",
+      "max_memory_usage": "2GB",
+      "max_concurrent_tasks": 10
+    },
+    "notification_hooks": {
+      "slack": {
+        "webhook": "$SLACK_WEBHOOK_URL",
+        "channel": "#adtopia-alerts",
+        "mention_on_critical": "@omniumai357"
+      },
+      "email": {
+        "smtp_config": "$EMAIL_SMTP_CONFIG",
+        "recipients": ["omniumai357@gmail.com"],
+        "priority_escalation": true
+      },
+      "webhook": {
+        "url": "$MONITORING_WEBHOOK_URL",
+        "auth": "bearer_token",
+        "retry_policy": "exponential_backoff"
+      },
+      "phone": {
+        "provider": "twilio",
+        "number": "$EMERGENCY_PHONE",
+        "only_critical": true
+      }
+    },
+    "integration_apis": {
+      "github": {
+        "token": "$GITHUB_PAT",
+        "permissions": ["repo", "actions", "packages"]
+      },
+      "supabase": {
+        "service_role_key": "$SUPABASE_SERVICE_ROLE_KEY",
+        "project_ref": "auyjsmtnfnnapjdrzhea"
+      },
+      "vercel": {
+        "token": "$VERCEL_TOKEN",
+        "team": "omnia-group"
+      },
+      "stripe": {
+        "secret_key": "$STRIPE_SECRET_KEY",
+        "webhook_secret": "$STRIPE_WEBHOOK_SECRET"
+      }
+    },
+    "ai_enhancement": {
+      "error_prediction": true,
+      "auto_optimization": true,
+      "learning_enabled": true,
+      "pattern_recognition": "advanced"
+    }
+  },
+  "execution_schedule": {
+    "critical_tasks": "every_15_minutes",
+    "high_priority": "every_30_minutes", 
+    "medium_priority": "hourly",
+    "low_priority": "daily",
+    "comprehensive_audit": "weekly"
+  }
+}
