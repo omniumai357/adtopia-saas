@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AdTopia - Launch Your Business Online in 7 Days</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(to right, #2563eb, #9333ea);
+            color: white;
+            padding: 80px 20px;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 24px;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            margin-bottom: 32px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 32px;
+        }
+
+        .btn {
+            padding: 16px 32px;
+            border-radius: 8px;
+            font-size: 1.125rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: white;
+            color: #2563eb;
+        }
+
+        .btn-primary:hover {
+            background: #f3f4f6;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .btn-secondary:hover {
+            background: white;
+            color: #2563eb;
+        }
+
+        .trust-elements {
+            display: flex;
+            gap: 24px;
+            justify-content: center;
+            flex-wrap: wrap;
+            font-size: 0.875rem;
+            opacity: 0.9;
+        }
+
+        .trust-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Countdown Timer */
+        .countdown {
+            background: #dc2626;
+            color: white;
+            padding: 16px 20px;
+            text-align: center;
+        }
+
+        .countdown p {
+            font-size: 1.125rem;
+            font-weight: 600;
+        }
+
+        /* Gallery Section */
+        .gallery {
+            padding: 64px 20px;
+            background: #f9fafb;
+        }
+
+        .gallery-header {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+
+        .gallery-header h2 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #111827;
+            margin-bottom: 16px;
+        }
+
+        .gallery-subtitle {
+            font-size: 1.125rem;
+            color: #6b7280;
+            margin-bottom: 24px;
+        }
+
+        .language-toggle {
+            display: inline-block;
+            padding: 12px 24px;
+            background: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .language-toggle:hover {
+            background: #1d4ed8;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            margin-bottom: 48px;
+        }
+
+        .gallery-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .gallery-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+        }
+
+        .card-image {
+            width: 100%;
+            height: 250px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+        }
+
+        .card-content {
+            padding: 24px;
+        }
+
+        .featured-badge {
+            display: inline-block;
+            background: #fef3c7;
+            color: #92400e;
+            padding: 6px 12px;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            margin-bottom: 12px;
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: bold;
+            color: #111827;
+            margin-bottom: 8px;
+        }
+
+        .card-description {
+            color: #6b7280;
+            font-size: 0.875rem;
+            line-height: 1.6;
+        }
+
+        .gallery-cta {
+            text-align: center;
+        }
+
+        .btn-gallery {
+            background: #2563eb;
+            color: white;
+            padding: 16px 32px;
+            border-radius: 8px;
+            font-size: 1.125rem;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            transition: background 0.3s ease;
+        }
+
+        .btn-gallery:hover {
+            background: #1d4ed8;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .gallery-header h2 {
+                font-size: 2rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+            }
+
+            .trust-elements {
+                flex-direction: column;
+                gap: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Countdown Timer -->
+    <div class="countdown">
+        <div class="container">
+            <p id="countdown-text">⏰ Limited Time Offer - Ends in: Loading...</p>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Launch Your Business Online in 7 Days</h1>
+            <p>Professional QR codes that turn visitors into customers. $297 vs $780+ value - limited time offer.</p>
+            
+            <!-- 2 Primary CTAs -->
+            <div class="cta-buttons">
+                <a href="#preview" class="btn btn-primary">See Your Ad Live</a>
+                <a href="#email-capture" class="btn btn-secondary">Hold 30 Days</a>
+            </div>
+
+            <!-- Trust Elements -->
+            <div class="trust-elements">
+                <div class="trust-item">
+                    <span>✓</span>
+                    <span>24-hour delivery</span>
+                </div>
+                <div class="trust-item">
+                    <span>✓</span>
+                    <span>Money-back guarantee</span>
+                </div>
+                <div class="trust-item">
+                    <span>✓</span>
+                    <span>SSL secured</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bilingual Gallery Section -->
+    <section id="preview" class="gallery">
+        <div class="container">
+            <!-- Header with Language Toggle -->
+            <div class="gallery-header">
+                <h2 id="gallery-title">Professional Ad Gallery</h2>
+                <p class="gallery-subtitle" id="gallery-subtitle">See how our QR codes work for real businesses</p>
+                <button class="language-toggle" id="language-toggle" onclick="toggleLanguage()">
+                    <span id="toggle-text">Español</span>
+                </button>
+            </div>
+
+            <!-- Gallery Grid - English Cards -->
+            <div id="gallery-en" class="gallery-grid">
+                <div class="gallery-card">
+                    <div class="card-image">🔧</div>
+                    <div class="card-content">
+                        <span class="featured-badge">Featured</span>
+                        <h3 class="card-title">Plumbing Services</h3>
+                        <p class="card-description">Professional plumbing QR code with emergency contact</p>
+                    </div>
+                </div>
+
+                <div class="gallery-card">
+                    <div class="card-image">🏗️</div>
+                    <div class="card-content">
+                        <h3 class="card-title">Construction Company</h3>
+                        <p class="card-description">Professional construction QR code with project portfolio</p>
+                    </div>
+                </div>
+
+                <div class="gallery-card">
+                    <div class="card-image">❄️</div>
+                    <div class="card-content">
+                        <span class="featured-badge">Featured</span>
+                        <h3 class="card-title">HVAC Services</h3>
+                        <p class="card-description">Professional HVAC QR code with service scheduling</p>
+                    </div>
+                </div>
+
+                <div class="gallery-card">
+                    <div class="card-image">🚚</div>
+                    <div class="card-content">
+                        <h3 class="card-title">Moving Services</h3>
+                        <p class="card-description">Professional moving QR code with booking system</p>
+                    </div>
+                </div>
+
+                <div class="gallery-card">
+                    <div class="card-image">🧹</div>
+                    <div class="card-content">
+                        <span class="featured-badge">Featured</span>
+                        <h3 class="card-title">Cleaning Services</h3>
+                        <p class="card-description">Professional cleaning QR code with instant quotes</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Gallery Grid - Spanish Cards -->
+            <div id="gallery-es" class="gallery-grid hidden">
+                <div class="gallery-card">
+                    <div class="card-image">🔧</div>
+                    <div class="card-content">
+                        <span class="featured-badge">Destacado</span>
+                        <h3 class="card-title">Servicios de Plomería</h3>
+                        <p class="card-description">Código QR profesional de plomería con contacto de emergencia</p>
+                    </div>
+                </div>
+
+                <div class="gallery-card">
+                    <div class="card-image">🏗️</div>
+                    <div class="card-content">
+                        <h3 class="card-title">Empresa de Construcción</h3>
+                        <p class="card-description">Código QR profesional de construcción con portafolio de proyectos</p>
+                    </div>
+                </div>
+
+                <div class="gallery-card">
+                    <div class="card-image">❄️</div>
+                    <div class="card-content">
+                        <span class="featured-badge">Destacado</span>
+                        <h3 class="card-title">Servicios de HVAC</h3>
+                        <p class="card-description">Código QR profesional de HVAC con programación de servicios</p>
+                    </div>
+                </div>
+
+                <div class="gallery-card">
+                    <div class="card-image">🚚</div>
+                    <div class="card-content">
+                        <h3 class="card-title">Servicios de Mudanza</h3>
+                        <p class="card-description">Código QR profesional de mudanza con sistema de reservas</p>
+                    </div>
+                </div>
+
+                <div class="gallery-card">
+                    <div class="card-image">🧹</div>
+                    <div class="card-content">
+                        <span class="featured-badge">Destacado</span>
+                        <h3 class="card-title">Servicios de Limpieza</h3>
+                        <p class="card-description">Código QR profesional de limpieza con cotizaciones instantáneas</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Call to Action -->
+            <div class="gallery-cta">
+                <a href="#pricing" class="btn-gallery" id="view-all-btn">View All Examples</a>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Countdown Timer Logic
+        function startCountdown() {
+            const countdownElement = document.getElementById('countdown-text');
+            // Set deadline to 7 days from now
+            const endTime = new Date().getTime() + (7 * 24 * 60 * 60 * 1000);
+            
+            function updateCountdown() {
+                const now = new Date().getTime();
+                const distance = endTime - now;
+                
+                if (distance > 0) {
+                    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                    
+                    const hoursStr = hours.toString().padStart(2, '0');
+                    const minutesStr = minutes.toString().padStart(2, '0');
+                    const secondsStr = seconds.toString().padStart(2, '0');
+                    
+                    countdownElement.innerHTML = `⏰ Limited Time Offer - Ends in: ${days}d ${hoursStr}h ${minutesStr}m ${secondsStr}s`;
+                } else {
+                    countdownElement.innerHTML = '⏰ Offer Expired!';
+                    clearInterval(timer);
+                }
+            }
+            
+            updateCountdown();
+            const timer = setInterval(updateCountdown, 1000);
+        }
+
+        // Bilingual Gallery Toggle Logic
+        let currentLanguage = 'en';
+
+        function toggleLanguage() {
+            const enGallery = document.getElementById('gallery-en');
+            const esGallery = document.getElementById('gallery-es');
+            const toggleText = document.getElementById('toggle-text');
+            const galleryTitle = document.getElementById('gallery-title');
+            const gallerySubtitle = document.getElementById('gallery-subtitle');
+            const viewAllBtn = document.getElementById('view-all-btn');
+            
+            if (currentLanguage === 'en') {
+                // Switch to Spanish
+                enGallery.classList.add('hidden');
+                esGallery.classList.remove('hidden');
+                toggleText.textContent = 'English';
+                galleryTitle.textContent = 'Galería Profesional de Anuncios';
+                gallerySubtitle.textContent = 'Ve cómo funcionan nuestros códigos QR para negocios reales';
+                viewAllBtn.textContent = 'Ver Todos los Ejemplos';
+                currentLanguage = 'es';
+            } else {
+                // Switch to English
+                esGallery.classList.add('hidden');
+                enGallery.classList.remove('hidden');
+                toggleText.textContent = 'Español';
+                galleryTitle.textContent = 'Professional Ad Gallery';
+                gallerySubtitle.textContent = 'See how our QR codes work for real businesses';
+                viewAllBtn.textContent = 'View All Examples';
+                currentLanguage = 'en';
+            }
+        }
+
+        // Initialize countdown on page load
+        window.addEventListener('DOMContentLoaded', startCountdown);
+    </script>
+</body>
+</html>
