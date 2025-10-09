@@ -7,30 +7,52 @@ export default function Hero() {
     <section className="bg-gradient-to-r from-blue-600 to-purple-600 text-white py-20">
       <div className="container mx-auto px-4 text-center">
         <h1 className="text-5xl font-bold mb-6">
-          AI-Powered QR Codes for Your Business
+          Launch Your Business Online in 7 Days
         </h1>
         <p className="text-xl mb-8 max-w-2xl mx-auto">
-          Generate professional QR codes in 24 hours. Boost your marketing with AI-driven designs.
+          Professional QR codes that turn visitors into customers. $297 vs $780+ value - limited time offer.
         </p>
-        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+        
+        {/* Simplified CTA Section - Only 2 Primary CTAs */}
+        <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
           <a 
-            href={APP_CONFIG.PRICING.STARTER.stripeLink}
+            href="#preview"
             className="bg-white text-blue-600 px-8 py-4 rounded-lg text-lg font-semibold hover:bg-gray-100 transition-colors"
           >
-            {APP_CONFIG.PRICING.STARTER.name} - {APP_CONFIG.PRICING.STARTER.priceDisplay}
-          </a>
-          <a 
-            href={APP_CONFIG.PRICING.ULTIMATE.stripeLink}
-            className="bg-green-500 text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-green-600 transition-colors"
-          >
-            {APP_CONFIG.PRICING.ULTIMATE.name} - {APP_CONFIG.PRICING.ULTIMATE.priceDisplay}
+            See Your Ad Live
           </a>
           <a 
             href="#pricing"
             className="border-2 border-white text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-white hover:text-blue-600 transition-colors"
           >
-            View All Plans
+            View Pricing
           </a>
+        </div>
+
+        {/* Secondary CTA for Email Capture */}
+        <div className="mb-8">
+          <a 
+            href="#email-capture"
+            className="text-white underline hover:text-gray-200 transition-colors"
+          >
+            Hold 30 Days (Free) - No commitment
+          </a>
+        </div>
+
+        {/* Trust Elements */}
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-6 text-sm opacity-90">
+          <div className="flex items-center gap-2">
+            <span>✓</span>
+            <span>24-hour delivery</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <span>✓</span>
+            <span>Money-back guarantee</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <span>✓</span>
+            <span>SSL secured</span>
+          </div>
         </div>
       </div>
     </section>

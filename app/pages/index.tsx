@@ -1,6 +1,7 @@
 import React from 'react';
 import Head from 'next/head';
 import { STRIPE_LINKS } from '../../src/config/stripeConfig';
+import BilingualGallery from '../../src/components/BilingualGallery';
 
 interface GalleryImage {
   id: string;
@@ -106,19 +107,29 @@ export default function Home({ galleryImages = [] }: HomeProps) {
               {currentT.subtitle}
             </p>
             
-            {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
+            {/* Simplified CTA Buttons - Only 2 Primary CTAs */}
+            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
               <a
-                href={STRIPE_LINKS.PREVIEW}
+                href="#preview"
                 className="bg-blue-600 text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-blue-700 transition-colors"
               >
-                {currentT.preview}
+                {currentT.cta}
               </a>
               <a
-                href={STRIPE_LINKS.FULL_PACKAGE}
-                className="bg-green-600 text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-green-700 transition-colors"
+                href="#pricing"
+                className="border-2 border-blue-600 text-blue-600 px-8 py-4 rounded-lg text-lg font-semibold hover:bg-blue-600 hover:text-white transition-colors"
               >
-                {currentT.full}
+                {language === 'en' ? 'View Pricing' : 'Ver Precios'}
+              </a>
+            </div>
+
+            {/* Secondary CTA for Email Capture */}
+            <div className="mb-8">
+              <a
+                href="#email-capture"
+                className="text-blue-600 underline hover:text-blue-800 transition-colors"
+              >
+                {language === 'en' ? 'Hold 30 Days (Free) - No commitment' : 'Reservar 30 Días (Gratis) - Sin compromiso'}
               </a>
             </div>
 
@@ -147,28 +158,133 @@ export default function Home({ galleryImages = [] }: HomeProps) {
           </div>
         </section>
 
-        {/* Gallery Section */}
-        <section className="py-20">
+        {/* Bilingual Gallery Section - Embedded for immediate visibility */}
+        <BilingualGallery images={galleryImages} />
+
+        {/* Pricing Section - Made visible on load */}
+        <section id="pricing" className="py-20 bg-gray-50">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">
-              {language === 'en' ? 'Gallery' : 'Galería'}
-            </h2>
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {filteredImages.map((image) => (
-                <div key={image.id} className="bg-white rounded-lg shadow-lg overflow-hidden">
-                  <img
-                    src={image.image_url}
-                    alt={image.title}
-                    className="w-full h-48 object-cover"
-                  />
-                  <div className="p-6">
-                    <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                      {image.title}
-                    </h3>
-                    <p className="text-gray-600">{image.description}</p>
-                  </div>
+            <div className="text-center mb-12">
+              <h2 className="text-3xl font-bold text-gray-900 mb-4">
+                {language === 'en' ? 'Choose Your Package' : 'Elige Tu Paquete'}
+              </h2>
+              <p className="text-lg text-gray-600">
+                {language === 'en' 
+                  ? 'Professional QR codes that convert visitors into customers' 
+                  : 'Códigos QR profesionales que convierten visitantes en clientes'
+                }
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+              {/* Starter Package */}
+              <div className="bg-white rounded-lg shadow-lg p-6 border border-gray-200">
+                <h3 className="text-xl font-semibold text-gray-900 mb-2">Starter</h3>
+                <div className="text-3xl font-bold text-blue-600 mb-4">$29</div>
+                <ul className="space-y-2 mb-6">
+                  <li className="flex items-center text-sm text-gray-600">
+                    <span className="text-green-500 mr-2">✓</span>
+                    QR Code Generation
+                  </li>
+                  <li className="flex items-center text-sm text-gray-600">
+                    <span className="text-green-500 mr-2">✓</span>
+                    7-day Live Preview
+                  </li>
+                  <li className="flex items-center text-sm text-gray-600">
+                    <span className="text-green-500 mr-2">✓</span>
+                    Mobile Responsive
+                  </li>
+                </ul>
+                <a
+                  href={STRIPE_LINKS.PREVIEW}
+                  className="w-full bg-blue-600 text-white py-2 px-4 rounded-lg text-center block hover:bg-blue-700 transition-colors"
+                >
+                  {language === 'en' ? 'Get Started' : 'Comenzar'}
+                </a>
+              </div>
+
+              {/* Basic Package */}
+              <div className="bg-white rounded-lg shadow-lg p-6 border-2 border-blue-500 relative">
+                <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
+                  <span className="bg-blue-500 text-white px-3 py-1 rounded-full text-sm font-medium">
+                    {language === 'en' ? 'Most Popular' : 'Más Popular'}
+                  </span>
                 </div>
-              ))}
+                <h3 className="text-xl font-semibold text-gray-900 mb-2">Basic</h3>
+                <div className="text-3xl font-bold text-blue-600 mb-4">$79</div>
+                <ul className="space-y-2 mb-6">
+                  <li className="flex items-center text-sm text-gray-600">
+                    <span className="text-green-500 mr-2">✓</span>
+                    Everything in Starter
+                  </li>
+                  <li className="flex items-center text-sm text-gray-600">
+                    <span className="text-green-500 mr-2">✓</span>
+                    30-day Extended Preview
+                  </li>
+                  <li className="flex items-center text-sm text-gray-600">
+                    <span className="text-green-500 mr-2">✓</span>
+                    Domain + SSL Setup
+                  </li>
+                </ul>
+                <a
+                  href={STRIPE_LINKS.FULL_PACKAGE}
+                  className="w-full bg-blue-600 text-white py-2 px-4 rounded-lg text-center block hover:bg-blue-700 transition-colors"
+                >
+                  {language === 'en' ? 'Get Started' : 'Comenzar'}
+                </a>
+              </div>
+
+              {/* Pro Package */}
+              <div className="bg-white rounded-lg shadow-lg p-6 border border-gray-200">
+                <h3 className="text-xl font-semibold text-gray-900 mb-2">Pro</h3>
+                <div className="text-3xl font-bold text-blue-600 mb-4">$149</div>
+                <ul className="space-y-2 mb-6">
+                  <li className="flex items-center text-sm text-gray-600">
+                    <span className="text-green-500 mr-2">✓</span>
+                    Everything in Basic
+                  </li>
+                  <li className="flex items-center text-sm text-gray-600">
+                    <span className="text-green-500 mr-2">✓</span>
+                    Dual-language Support
+                  </li>
+                  <li className="flex items-center text-sm text-gray-600">
+                    <span className="text-green-500 mr-2">✓</span>
+                    Phone Support
+                  </li>
+                </ul>
+                <a
+                  href="#contact"
+                  className="w-full bg-gray-600 text-white py-2 px-4 rounded-lg text-center block hover:bg-gray-700 transition-colors"
+                >
+                  {language === 'en' ? 'Contact Sales' : 'Contactar Ventas'}
+                </a>
+              </div>
+
+              {/* Ultimate Package */}
+              <div className="bg-white rounded-lg shadow-lg p-6 border border-gray-200">
+                <h3 className="text-xl font-semibold text-gray-900 mb-2">Ultimate</h3>
+                <div className="text-3xl font-bold text-blue-600 mb-4">$297</div>
+                <ul className="space-y-2 mb-6">
+                  <li className="flex items-center text-sm text-gray-600">
+                    <span className="text-green-500 mr-2">✓</span>
+                    5 Custom SEO Ad Cards
+                  </li>
+                  <li className="flex items-center text-sm text-gray-600">
+                    <span className="text-green-500 mr-2">✓</span>
+                    12 Months Hosting
+                  </li>
+                  <li className="flex items-center text-sm text-gray-600">
+                    <span className="text-green-500 mr-2">✓</span>
+                    Free Domain + SSL
+                  </li>
+                </ul>
+                <a
+                  href="#contact"
+                  className="w-full bg-gray-600 text-white py-2 px-4 rounded-lg text-center block hover:bg-gray-700 transition-colors"
+                >
+                  {language === 'en' ? 'Contact Sales' : 'Contactar Ventas'}
+                </a>
+              </div>
             </div>
           </div>
         </section>
