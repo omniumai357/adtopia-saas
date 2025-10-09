@@ -1,0 +1,23 @@
+{
+  "name": "AdTopia Revenue Empire",
+  "version": "1.0.0",
+  "description": "AI-powered ad card generator with $600K ARR scaling capability",
+  "context": {
+    "platforms": ["GitHub", "Supabase", "Cursor", "Vercel"],
+    "architecture": "Next.js + Supabase + OpenAI",
+    "target": "$600K ARR revenue empire"
+  },
+  "rules": [
+    "Always maintain enterprise-grade security standards",
+    "Optimize for $600K ARR revenue scaling",
+    "Follow AdTopia empire transformation guidelines",
+    "Ensure bulletproof operational status",
+    "Maintain Rodrigo's $99 success replication system"
+  ],
+  "features": {
+    "ai_integration": true,
+    "revenue_scaling": true,
+    "enterprise_security": true,
+    "performance_optimization": true
+  }
+}
