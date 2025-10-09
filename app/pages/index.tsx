@@ -159,7 +159,7 @@ export default function Home({ galleryImages = [] }: HomeProps) {
         </section>
 
         {/* Bilingual Gallery Section - Embedded for immediate visibility */}
-        <BilingualGallery images={galleryImages} />
+        <BilingualGallery />
 
         {/* Pricing Section - Made visible on load */}
         <section id="pricing" className="py-20 bg-gray-50">
