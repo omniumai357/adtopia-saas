@@ -79,7 +79,7 @@ export default function Home() {
     }, 1000);
 
     // Global error handler
-    const handleError = (error) => {
+    const handleError = (error: ErrorEvent | PromiseRejectionEvent) => {
       console.error('Global error:', error);
       setHasError(true);
     };
