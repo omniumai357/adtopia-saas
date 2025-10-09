@@ -13,7 +13,7 @@ export default function Hero() {
           Professional QR codes that turn visitors into customers. $297 vs $780+ value - limited time offer.
         </p>
         
-        {/* Simplified CTA Section - Only 2 Primary CTAs */}
+        {/* Only 2 Primary CTAs as requested */}
         <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
           <a 
             href="#preview"
@@ -22,20 +22,10 @@ export default function Hero() {
             See Your Ad Live
           </a>
           <a 
-            href="#pricing"
+            href="#email-capture"
             className="border-2 border-white text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-white hover:text-blue-600 transition-colors"
           >
-            View Pricing
-          </a>
-        </div>
-
-        {/* Secondary CTA for Email Capture */}
-        <div className="mb-8">
-          <a 
-            href="#email-capture"
-            className="text-white underline hover:text-gray-200 transition-colors"
-          >
-            Hold 30 Days (Free) - No commitment
+            Hold 30 Days
           </a>
         </div>
 

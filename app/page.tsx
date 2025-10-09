@@ -10,6 +10,7 @@ import TrustBadges from '../frontend-snippets/TrustBadges';
 import PricingTiers from '../frontend-snippets/PricingTiers';
 import LandingLayout from '../src/components/LandingLayout';
 import AdCards from '../src/components/AdCards';
+import BilingualGallery from '../src/components/BilingualGallery';
 
 // Error Boundary Component
 class ErrorBoundary extends React.Component {
@@ -166,14 +167,49 @@ export default function Home() {
         <meta name="description" content={currentT.subtitle} />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
+        {/* SSR Fallback - Ensure content is visible even with JS disabled */}
+        <noscript>
+          <style>{`
+            .js-only { display: none !important; }
+            .no-js-fallback { display: block !important; }
+          `}</style>
+        </noscript>
       </Head>
 
       <LandingLayout brand="adtopia">
         <Hero />
+        <BilingualGallery />
         <Countdown deadline="2025-11-01T00:00:00Z" />
         <TrustBadges />
         <PricingTiers />
         <AdCards language={language} />
+        
+        {/* SSR Fallback Content - Visible when JS is disabled */}
+        <noscript>
+          <section className="py-16 bg-gray-50">
+            <div className="container mx-auto px-4 text-center">
+              <h2 className="text-3xl font-bold text-gray-900 mb-4">
+                JavaScript Required
+              </h2>
+              <p className="text-gray-600 mb-6">
+                This application requires JavaScript to function properly. Please enable JavaScript in your browser.
+              </p>
+              <div className="bg-white rounded-lg shadow-md p-8 max-w-md mx-auto">
+                <h3 className="text-xl font-semibold mb-4">Quick Preview</h3>
+                <p className="text-gray-600 mb-4">
+                  Professional QR code generation for your business. 
+                  See your ad live with our preview system.
+                </p>
+                <a 
+                  href="#preview" 
+                  className="inline-block bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors"
+                >
+                  See Your Ad Live
+                </a>
+              </div>
+            </div>
+          </section>
+        </noscript>
       </LandingLayout>
     </ErrorBoundary>
   );
