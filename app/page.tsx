@@ -11,6 +11,7 @@ import PricingTiers from '../frontend-snippets/PricingTiers';
 import LandingLayout from '../src/components/LandingLayout';
 import AdCards from '../src/components/AdCards';
 import BilingualGallery from '../src/components/BilingualGallery';
+import SupabaseGallery from '../src/components/SupabaseGallery';
 
 // Error Boundary Component
 class ErrorBoundary extends React.Component<{children: React.ReactNode}, {hasError: boolean, error: Error | null}> {
@@ -178,7 +179,7 @@ export default function Home() {
 
       <LandingLayout brand="adtopia">
         <Hero />
-        <BilingualGallery />
+        <SupabaseGallery />
         <Countdown deadline="2025-11-01T00:00:00Z" />
         <TrustBadges />
         <PricingTiers />

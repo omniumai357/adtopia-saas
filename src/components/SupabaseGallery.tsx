@@ -1,6 +1,7 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { createClient } from '@supabase/supabase-js';
 
 interface GalleryImage {
   id: string;
@@ -12,15 +13,93 @@ interface GalleryImage {
   is_featured: boolean;
 }
 
-interface BilingualGalleryProps {
+interface SupabaseGalleryProps {
   className?: string;
 }
 
-export default function BilingualGallery({ className = '' }: BilingualGalleryProps) {
+export default function SupabaseGallery({ className = '' }: SupabaseGalleryProps) {
   const [language, setLanguage] = useState<'en' | 'es'>('en');
+  const [galleryData, setGalleryData] = useState<GalleryImage[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-  // Bilingual gallery data - Updated with new gallery assets
-  const galleryImages: GalleryImage[] = [
+  // Initialize Supabase client
+  const supabase = createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL || '',
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || ''
+  );
+
+  useEffect(() => {
+    fetchGalleryData();
+  }, []);
+
+  const fetchGalleryData = async () => {
+    try {
+      setLoading(true);
+      
+      // Fetch the demo preview from Supabase
+      const { data, error } = await supabase
+        .from('previews')
+        .select('card_json')
+        .eq('id', 'demo')
+        .eq('status', 'active')
+        .gte('expires_at', new Date().toISOString())
+        .single();
+
+      if (error) {
+        console.warn('Supabase fetch error, using fallback data:', error);
+        // Fallback to static data if Supabase fails
+        setGalleryData(getFallbackData());
+        return;
+      }
+
+      if (data && data.card_json) {
+        // Convert Supabase data to gallery format
+        const supabaseImages: GalleryImage[] = [];
+        
+        if (data.card_json.en) {
+          Object.entries(data.card_json.en).forEach(([key, card]: [string, any]) => {
+            supabaseImages.push({
+              id: `supabase-en-${key}`,
+              title: card.title || 'Professional Service',
+              description: card.description || 'Professional QR code',
+              image_url: card.image_url || `/gallery/en/card1.svg`,
+              language: 'en',
+              category: card.category || 'services',
+              is_featured: card.is_featured || false
+            });
+          });
+        }
+
+        if (data.card_json.es) {
+          Object.entries(data.card_json.es).forEach(([key, card]: [string, any]) => {
+            supabaseImages.push({
+              id: `supabase-es-${key}`,
+              title: card.title || 'Servicio Profesional',
+              description: card.description || 'Código QR profesional',
+              image_url: card.image_url || `/gallery/es/card1.svg`,
+              language: 'es',
+              category: card.category || 'services',
+              is_featured: card.is_featured || false
+            });
+          });
+        }
+
+        setGalleryData(supabaseImages);
+      } else {
+        // Fallback to static data
+        setGalleryData(getFallbackData());
+      }
+    } catch (err) {
+      console.error('Error fetching gallery data:', err);
+      setError('Failed to load gallery data');
+      setGalleryData(getFallbackData());
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const getFallbackData = (): GalleryImage[] => [
     {
       id: '1',
       title: 'Plumbing Services',
@@ -59,7 +138,7 @@ export default function BilingualGallery({ className = '' }: BilingualGalleryPro
     }
   ];
 
-  const filteredImages = galleryImages.filter(img => img.language === language);
+  const filteredImages = galleryData.filter(img => img.language === language);
   const featuredImages = filteredImages.filter(img => img.is_featured);
 
   const translations = {
@@ -82,6 +161,36 @@ export default function BilingualGallery({ className = '' }: BilingualGalleryPro
   };
 
   const t = translations[language];
+
+  if (loading) {
+    return (
+      <section id="preview" className={`py-16 bg-gray-50 ${className}`}>
+        <div className="container mx-auto px-4 text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+          <p className="text-gray-600">Loading gallery...</p>
+        </div>
+      </section>
+    );
+  }
+
+  if (error) {
+    return (
+      <section id="preview" className={`py-16 bg-gray-50 ${className}`}>
+        <div className="container mx-auto px-4 text-center">
+          <div className="bg-red-50 border border-red-200 rounded-lg p-4 max-w-md mx-auto">
+            <h3 className="text-red-800 font-semibold mb-2">Error Loading Gallery</h3>
+            <p className="text-red-600">{error}</p>
+            <button 
+              onClick={fetchGalleryData}
+              className="mt-2 px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700"
+            >
+              Retry
+            </button>
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section id="preview" className={`py-16 bg-gray-50 ${className}`}>
