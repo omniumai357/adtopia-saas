@@ -22,6 +22,8 @@ serve(async (req) => {
       RESEND_API_KEY: !!Deno.env.get('RESEND_API_KEY'),
       GAMMA_API_KEY: !!Deno.env.get('GAMMA_API_KEY'),
       OPENAI_API_KEY: !!Deno.env.get('OPENAI_API_KEY'),
+      TWILIO_ADTOPIA_IO_KEY: !!Deno.env.get('TWILIO_ADTOPIA_IO_KEY'),
+      TWILIO_BIZBOX_HOST_KEY: !!Deno.env.get('TWILIO_BIZBOX_HOST_KEY'),
     }
 
     // Count secrets present

@@ -1,0 +1,99 @@
+2025-10-09 15:02:11,808 - INFO - 🚀 Starting Gamma Gallery Migration with 16 URLs
+2025-10-09 15:02:11,808 - INFO - 📊 Expected cost: $8.00
+2025-10-09 15:02:11,809 - INFO - ⏱️ Estimated duration: 48 minutes
+2025-10-09 15:02:12,026 - INFO - ✅ Supabase client initialized successfully
+2025-10-09 15:02:12,026 - INFO - 🔄 Processing: https://lupes-gourmet-tamales-ki0bb9s.gamma.site/ - Trace: eb0c5ed3
+2025-10-09 15:02:12,027 - INFO - 📊 Metadata: seasonal | en | FOMO: 6 - Trace: eb0c5ed3
+2025-10-09 15:02:12,027 - INFO - 🔄 Calling Gamma API (attempt 1/3) - Trace: eb0c5ed3
+2025-10-09 15:02:12,446 - ERROR - ❌ Unexpected status (404) for eb0c5ed3: {"message":"Cannot POST /v1/generations","error":"Not Found","statusCode":404}
+2025-10-09 15:02:12,450 - ERROR - ❌ API call failed: https://lupes-gourmet-tamales-ki0bb9s.gamma.site/ - Trace: eb0c5ed3
+2025-10-09 15:02:13,454 - INFO - 🔄 Processing: https://stress-free-plumbing-fre-o80krz7.gamma.site/ - Trace: 098490ae
+2025-10-09 15:02:13,454 - INFO - 📊 Metadata: plumber | en | FOMO: 9 - Trace: 098490ae
+2025-10-09 15:02:13,455 - INFO - 🔄 Calling Gamma API (attempt 1/3) - Trace: 098490ae
+2025-10-09 15:02:13,845 - ERROR - ❌ Unexpected status (404) for 098490ae: {"message":"Cannot POST /v1/generations","error":"Not Found","statusCode":404}
+2025-10-09 15:02:13,851 - ERROR - ❌ API call failed: https://stress-free-plumbing-fre-o80krz7.gamma.site/ - Trace: 098490ae
+2025-10-09 15:02:14,854 - INFO - 🔄 Processing: https://coolfix-fresno-xhcbhqq.gamma.site/ - Trace: b0119f36
+2025-10-09 15:02:14,854 - INFO - 📊 Metadata: hvac | en | FOMO: 8 - Trace: b0119f36
+2025-10-09 15:02:14,855 - INFO - 🔄 Calling Gamma API (attempt 1/3) - Trace: b0119f36
+2025-10-09 15:02:15,237 - ERROR - ❌ Unexpected status (404) for b0119f36: {"message":"Cannot POST /v1/generations","error":"Not Found","statusCode":404}
+2025-10-09 15:02:15,240 - ERROR - ❌ API call failed: https://coolfix-fresno-xhcbhqq.gamma.site/ - Trace: b0119f36
+2025-10-09 15:02:16,243 - INFO - 🔄 Processing: https://coolfix-fresno-lvcnlk0.gamma.site/ - Trace: 6cc3b312
+2025-10-09 15:02:16,243 - INFO - 📊 Metadata: hvac | en | FOMO: 8 - Trace: 6cc3b312
+2025-10-09 15:02:16,244 - INFO - 🔄 Calling Gamma API (attempt 1/3) - Trace: 6cc3b312
+2025-10-09 15:02:16,623 - ERROR - ❌ Unexpected status (404) for 6cc3b312: {"message":"Cannot POST /v1/generations","error":"Not Found","statusCode":404}
+2025-10-09 15:02:16,626 - ERROR - ❌ API call failed: https://coolfix-fresno-lvcnlk0.gamma.site/ - Trace: 6cc3b312
+2025-10-09 15:02:17,631 - INFO - 🔄 Processing: https://coolfix-fresno-w6yxeky.gamma.site/ - Trace: c759eb83
+2025-10-09 15:02:17,632 - INFO - 📊 Metadata: hvac | en | FOMO: 8 - Trace: c759eb83
+2025-10-09 15:02:17,632 - INFO - 🔄 Calling Gamma API (attempt 1/3) - Trace: c759eb83
+2025-10-09 15:02:18,011 - ERROR - ❌ Unexpected status (404) for c759eb83: {"message":"Cannot POST /v1/generations","error":"Not Found","statusCode":404}
+2025-10-09 15:02:18,015 - ERROR - ❌ API call failed: https://coolfix-fresno-w6yxeky.gamma.site/ - Trace: c759eb83
+2025-10-09 15:02:19,017 - INFO - 🔄 Processing: https://coolfixfresno-vjvpban.gamma.site/ - Trace: 9fc25aa2
+2025-10-09 15:02:19,018 - INFO - 📊 Metadata: hvac | en | FOMO: 8 - Trace: 9fc25aa2
+2025-10-09 15:02:19,018 - INFO - 🔄 Calling Gamma API (attempt 1/3) - Trace: 9fc25aa2
+2025-10-09 15:02:19,407 - ERROR - ❌ Unexpected status (404) for 9fc25aa2: {"message":"Cannot POST /v1/generations","error":"Not Found","statusCode":404}
+2025-10-09 15:02:19,410 - ERROR - ❌ API call failed: https://coolfixfresno-vjvpban.gamma.site/ - Trace: 9fc25aa2
+2025-10-09 15:02:20,411 - INFO - 🔄 Processing: https://fresno-plumber-marketing-mpxds4u.gamma.site/ - Trace: 2a10bae6
+2025-10-09 15:02:20,411 - INFO - 📊 Metadata: plumber | en | FOMO: 6 - Trace: 2a10bae6
+2025-10-09 15:02:20,412 - INFO - 🔄 Calling Gamma API (attempt 1/3) - Trace: 2a10bae6
+2025-10-09 15:02:20,827 - ERROR - ❌ Unexpected status (404) for 2a10bae6: {"message":"Cannot POST /v1/generations","error":"Not Found","statusCode":404}
+2025-10-09 15:02:20,832 - ERROR - ❌ API call failed: https://fresno-plumber-marketing-mpxds4u.gamma.site/ - Trace: 2a10bae6
+2025-10-09 15:02:21,835 - INFO - 🔄 Processing: https://modesto-piano-movers-vkcjkyg.gamma.site/ - Trace: 74fa3e38
+2025-10-09 15:02:21,835 - INFO - 📊 Metadata: movers | en | FOMO: 6 - Trace: 74fa3e38
+2025-10-09 15:02:21,835 - INFO - 🔄 Calling Gamma API (attempt 1/3) - Trace: 74fa3e38
+2025-10-09 15:02:22,505 - ERROR - ❌ Unexpected status (404) for 74fa3e38: {"message":"Cannot POST /v1/generations","error":"Not Found","statusCode":404}
+2025-10-09 15:02:22,508 - ERROR - ❌ API call failed: https://modesto-piano-movers-vkcjkyg.gamma.site/ - Trace: 74fa3e38
+2025-10-09 15:02:23,511 - INFO - 🔄 Processing: https://r-movers-smb9gbi.gamma.site/ - Trace: 2afee6ae
+2025-10-09 15:02:23,512 - INFO - 📊 Metadata: movers | en | FOMO: 6 - Trace: 2afee6ae
+2025-10-09 15:02:23,512 - INFO - 🔄 Calling Gamma API (attempt 1/3) - Trace: 2afee6ae
+2025-10-09 15:02:23,878 - ERROR - ❌ Unexpected status (404) for 2afee6ae: {"message":"Cannot POST /v1/generations","error":"Not Found","statusCode":404}
+2025-10-09 15:02:23,883 - ERROR - ❌ API call failed: https://r-movers-smb9gbi.gamma.site/ - Trace: 2afee6ae
+2025-10-09 15:02:24,883 - INFO - 🔄 Processing: https://r-movers-nszrisn.gamma.site/ - Trace: e66a9795
+2025-10-09 15:02:24,884 - INFO - 📊 Metadata: movers | en | FOMO: 6 - Trace: e66a9795
+2025-10-09 15:02:24,884 - INFO - 🔄 Calling Gamma API (attempt 1/3) - Trace: e66a9795
+2025-10-09 15:02:25,486 - ERROR - ❌ Unexpected status (404) for e66a9795: {"message":"Cannot POST /v1/generations","error":"Not Found","statusCode":404}
+2025-10-09 15:02:25,508 - ERROR - ❌ API call failed: https://r-movers-nszrisn.gamma.site/ - Trace: e66a9795
+2025-10-09 15:02:26,509 - INFO - 🔄 Processing: https://modesto-movers-zpfo6w4.gamma.site/ - Trace: 960e2e79
+2025-10-09 15:02:26,510 - INFO - 📊 Metadata: movers | en | FOMO: 6 - Trace: 960e2e79
+2025-10-09 15:02:26,510 - INFO - 🔄 Calling Gamma API (attempt 1/3) - Trace: 960e2e79
+2025-10-09 15:02:26,962 - ERROR - ❌ Unexpected status (404) for 960e2e79: {"message":"Cannot POST /v1/generations","error":"Not Found","statusCode":404}
+2025-10-09 15:02:26,970 - ERROR - ❌ API call failed: https://modesto-movers-zpfo6w4.gamma.site/ - Trace: 960e2e79
+2025-10-09 15:02:27,971 - INFO - 🔄 Processing: https://rmovers-ienbs1i.gamma.site/ - Trace: 6427084c
+2025-10-09 15:02:27,972 - INFO - 📊 Metadata: movers | en | FOMO: 6 - Trace: 6427084c
+2025-10-09 15:02:27,972 - INFO - 🔄 Calling Gamma API (attempt 1/3) - Trace: 6427084c
+2025-10-09 15:02:28,427 - ERROR - ❌ Unexpected status (404) for 6427084c: {"message":"Cannot POST /v1/generations","error":"Not Found","statusCode":404}
+2025-10-09 15:02:28,432 - ERROR - ❌ API call failed: https://rmovers-ienbs1i.gamma.site/ - Trace: 6427084c
+2025-10-09 15:02:29,435 - INFO - 🔄 Processing: https://rmoversmodesto-odlov19.gamma.site/ - Trace: d87b2fb4
+2025-10-09 15:02:29,436 - INFO - 📊 Metadata: movers | en | FOMO: 6 - Trace: d87b2fb4
+2025-10-09 15:02:29,436 - INFO - 🔄 Calling Gamma API (attempt 1/3) - Trace: d87b2fb4
+2025-10-09 15:02:29,893 - ERROR - ❌ Unexpected status (404) for d87b2fb4: {"message":"Cannot POST /v1/generations","error":"Not Found","statusCode":404}
+2025-10-09 15:02:29,899 - ERROR - ❌ API call failed: https://rmoversmodesto-odlov19.gamma.site/ - Trace: d87b2fb4
+2025-10-09 15:02:30,901 - INFO - 🔄 Processing: https://rmoversmodesto-hkzjsdi.gamma.site/ - Trace: fbd78aa1
+2025-10-09 15:02:30,902 - INFO - 📊 Metadata: movers | en | FOMO: 6 - Trace: fbd78aa1
+2025-10-09 15:02:30,902 - INFO - 🔄 Calling Gamma API (attempt 1/3) - Trace: fbd78aa1
+2025-10-09 15:02:31,320 - ERROR - ❌ Unexpected status (404) for fbd78aa1: {"message":"Cannot POST /v1/generations","error":"Not Found","statusCode":404}
+2025-10-09 15:02:31,325 - ERROR - ❌ API call failed: https://rmoversmodesto-hkzjsdi.gamma.site/ - Trace: fbd78aa1
+2025-10-09 15:02:32,329 - INFO - 🔄 Processing: https://mudanzas-r-movers-sb78tsz.gamma.site/ - Trace: bcc01a31
+2025-10-09 15:02:32,329 - INFO - 📊 Metadata: movers | es | FOMO: 6 - Trace: bcc01a31
+2025-10-09 15:02:32,329 - INFO - 🔄 Calling Gamma API (attempt 1/3) - Trace: bcc01a31
+2025-10-09 15:02:32,756 - ERROR - ❌ Unexpected status (404) for bcc01a31: {"message":"Cannot POST /v1/generations","error":"Not Found","statusCode":404}
+2025-10-09 15:02:32,761 - ERROR - ❌ API call failed: https://mudanzas-r-movers-sb78tsz.gamma.site/ - Trace: bcc01a31
+2025-10-09 15:02:33,766 - INFO - 🔄 Processing: https://labor-day-weekend-sale-2i56zet.gamma.site/ - Trace: 84f09a9b
+2025-10-09 15:02:33,767 - INFO - 📊 Metadata: seasonal | en | FOMO: 8 - Trace: 84f09a9b
+2025-10-09 15:02:33,768 - INFO - 🔄 Calling Gamma API (attempt 1/3) - Trace: 84f09a9b
+2025-10-09 15:02:34,284 - ERROR - ❌ Unexpected status (404) for 84f09a9b: {"message":"Cannot POST /v1/generations","error":"Not Found","statusCode":404}
+2025-10-09 15:02:34,293 - ERROR - ❌ API call failed: https://labor-day-weekend-sale-2i56zet.gamma.site/ - Trace: 84f09a9b
+2025-10-09 15:02:34,305 - INFO - 🎉 Migration completed!
+2025-10-09 15:02:34,305 - INFO - 📊 Final Results:
+2025-10-09 15:02:34,306 - INFO -    • Total URLs: 16
+2025-10-09 15:02:34,306 - INFO -    • Successful: 0
+2025-10-09 15:02:34,306 - INFO -    • Failed: 16
+2025-10-09 15:02:34,306 - INFO -    • Warnings: 0
+2025-10-09 15:02:34,307 - INFO -    • Cost: $0.00
+2025-10-09 15:02:34,307 - INFO -    • Duration: 0.4 minutes
+2025-10-09 15:02:34,308 - INFO - ❌ Errors encountered:
+2025-10-09 15:02:34,308 - INFO -    • API call failed: https://lupes-gourmet-tamales-ki0bb9s.gamma.site/ - Trace: eb0c5ed3
+2025-10-09 15:02:34,308 - INFO -    • API call failed: https://stress-free-plumbing-fre-o80krz7.gamma.site/ - Trace: 098490ae
+2025-10-09 15:02:34,308 - INFO -    • API call failed: https://coolfix-fresno-xhcbhqq.gamma.site/ - Trace: b0119f36
+2025-10-09 15:02:34,308 - INFO -    • API call failed: https://coolfix-fresno-lvcnlk0.gamma.site/ - Trace: 6cc3b312
+2025-10-09 15:02:34,309 - INFO -    • API call failed: https://coolfix-fresno-w6yxeky.gamma.site/ - Trace: c759eb83
+2025-10-09 15:02:34,309 - INFO -    • ... and 11 more errors

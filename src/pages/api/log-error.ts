@@ -2,12 +2,7 @@
 // Error logging API route for AdTopia error monitoring
 
 import { NextApiRequest, NextApiResponse } from 'next';
-import { createClient } from '@supabase/supabase-js';
-
-const supabase = createClient(
-  process.env.SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
-);
+import { supabaseAdmin } from '@/lib/supabase';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== 'POST') {
@@ -18,7 +13,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const errorData = req.body;
     
     // Log to Supabase error_logs table
-    const { data, error } = await supabase.from('error_logs').insert({
+    const { data, error } = await supabaseAdmin.from('error_logs').insert({
       error_message: errorData.error.message,
       error_stack: errorData.error.stack,
       error_name: errorData.error.name,

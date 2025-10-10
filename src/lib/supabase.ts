@@ -4,7 +4,30 @@ import { createClient } from '@supabase/supabase-js'
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
 
-export const supabase = createClient(supabaseUrl, supabaseAnonKey)
+// ✅ CLIENT-SIDE: Use anon key with user sessions
+export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
+  auth: {
+    autoRefreshToken: true,
+    persistSession: true,
+    detectSessionInUrl: true,
+    storageKey: 'supabase-auth-token'
+  },
+  global: {
+    headers: {
+      'apikey': supabaseAnonKey
+    }
+  }
+})
+
+// ✅ SERVER-SIDE: Use service role key (NEVER expose to client)
+const supabaseServiceRole = process.env.SUPABASE_SERVICE_ROLE_KEY!
+
+export const supabaseAdmin = createClient(supabaseUrl, supabaseServiceRole, {
+  auth: {
+    autoRefreshToken: false,
+    persistSession: false
+  }
+})
 
 // Types for our database
 export interface Database {
@@ -40,5 +63,17 @@ export interface Database {
   }
 }
 
-// Typed Supabase client
-export const supabaseTyped = createClient<Database>(supabaseUrl, supabaseAnonKey)
+// Typed Supabase client (client-side only)
+export const supabaseTyped = createClient<Database>(supabaseUrl, supabaseAnonKey, {
+  auth: {
+    autoRefreshToken: true,
+    persistSession: true,
+    detectSessionInUrl: true,
+    storageKey: 'supabase-auth-token'
+  },
+  global: {
+    headers: {
+      'apikey': supabaseAnonKey
+    }
+  }
+})

@@ -1,12 +1,7 @@
 // Cloud-native API route for AI lead optimization
 
 import { NextApiRequest, NextApiResponse } from 'next';
-import { createClient } from '@supabase/supabase-js';
-
-const supabase = createClient(
-  process.env.SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
-);
+import { supabaseAdmin } from '@/lib/supabase';
 
 interface OptimizationRequest {
   leadData: {
@@ -61,7 +56,7 @@ export default async function handler(
     const optimization = JSON.parse(aiResult.choices[0].message.content);
 
     // Store optimization in Supabase
-    const { data, error } = await supabase
+    const { data, error } = await supabaseAdmin
       .from('ai_optimizations')
       .insert({
         lead_id: leadData.id,

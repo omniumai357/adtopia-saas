@@ -131,29 +131,29 @@ export function OnboardingEmailForm({ onSubmit, className = '' }: OnboardingEmai
         form_state: 'submitting'
       });
 
-      // Call the onSubmit prop if provided
-      if (onSubmit) {
-        await onSubmit(email);
+      // Check if user is already authenticated
+      const { data: { session } } = await supabase.auth.getSession();
+      
+      if (session?.user) {
+        // User is already logged in, just track the event
+        await supabase.functions.invoke('track_ab_exposure', {
+          body: {
+            user_id: session.user.id,
+            variant: variant,
+            event: 'cta_click',
+            email: email,
+            timestamp: new Date().toISOString()
+          }
+        });
+        
+        setIsSubmitted(true);
+        return;
       }
 
-      // Track CTA click with legacy function for backward compatibility
-      const { data: { user } } = await supabase.auth.getUser();
-      
-      await supabase.functions.invoke('track_ab_exposure', {
-        body: {
-          user_id: user?.id || null,
-          variant: variant,
-          event: 'cta_click',
-          email: email,
-          timestamp: new Date().toISOString()
-        }
-      });
+      // User is not authenticated, redirect to signup with email pre-filled
+      const signupUrl = `/signup?email=${encodeURIComponent(email)}`;
+      window.location.href = signupUrl;
 
-      setIsSubmitted(true);
-      
-      if (process.env.NODE_ENV === 'development') {
-        console.log(`[AB Test] Tracked CTA click for variant: ${variant}`);
-      }
     } catch (error) {
       console.error('Form submission error:', error);
       setError('Something went wrong. Please try again.');

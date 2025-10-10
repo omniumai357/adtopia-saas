@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>AdTopia - AI-Powered Ad Cards</title>
+    <style>
+        /* Basic styling */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background-color: #f4f4f4;
+        }
+        header {
+            background: linear-gradient(135deg, #3B82F6, #8B5CF6);
+            color: white;
+            padding: 50px 20px;
+            text-align: center;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 3em;
+            font-weight: bold;
+        }
+        header p {
+            font-size: 1.2em;
+            margin: 10px 0;
+        }
+        section {
+            padding: 30px;
+            text-align: center;
+        }
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 15px;
+            margin: 30px 0;
+        }
+        .card {
+            background-color: #fff;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        .card img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+        .card p {
+            margin: 10px 0 0 0;
+            font-weight: 500;
+            color: #333;
+        }
+        .countdown {
+            font-size: 2em;
+            margin: 30px 0;
+            background: linear-gradient(135deg, #FF6B6B, #FF8E53);
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+        }
+        .cta-button {
+            background-color: #3B82F6;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.2em;
+            cursor: pointer;
+            margin: 10px;
+            text-decoration: none;
+            display: inline-block;
+            transition: background-color 0.3s ease;
+        }
+        .cta-button:hover {
+            background-color: #2563EB;
+        }
+        .cta-button.secondary {
+            background-color: transparent;
+            border: 2px solid #3B82F6;
+            color: #3B82F6;
+        }
+        .cta-button.secondary:hover {
+            background-color: #3B82F6;
+            color: white;
+        }
+        .language-toggle {
+            margin: 20px 0;
+        }
+        .language-toggle button {
+            background-color: #10B981;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            margin: 0 5px;
+        }
+        .language-toggle button:hover {
+            background-color: #059669;
+        }
+        .language-toggle button.active {
+            background-color: #3B82F6;
+        }
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .gallery {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            header h1 {
+                font-size: 2em;
+            }
+        }
+        @media (max-width: 480px) {
+            .gallery {
+                grid-template-columns: 1fr;
+            }
+            header h1 {
+                font-size: 1.5em;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>AdTopia - AI-Powered Ad Cards</h1>
+    <p>Launch Your Business Online in 7 Days</p>
+    <p>Professional QR codes that turn visitors into customers</p>
+</header>
+
+<section>
+    <div class="countdown">
+        <p>Special Offer Ends In:</p>
+        <div id="timer"></div>
+    </div>
+    
+    <div class="language-toggle">
+        <button class="active" onclick="showLanguage('en')">English</button>
+        <button onclick="showLanguage('es')">Español</button>
+    </div>
+    
+    <h2 id="gallery-title">Professional Ad Gallery</h2>
+    <p id="gallery-subtitle">See how our QR codes work for real businesses</p>
+    
+    <div class="gallery" id="gallery">
+        <!-- English Cards -->
+        <div class="card en-card">
+            <img src="/gallery/en/card1.svg" alt="Plumbing Services">
+            <p>Plumbing Services</p>
+        </div>
+        <div class="card en-card">
+            <img src="/gallery/en/card2.svg" alt="Construction Company">
+            <p>Construction Company</p>
+        </div>
+        <div class="card en-card">
+            <img src="/gallery/en/card1.svg" alt="HVAC Services">
+            <p>HVAC Services</p>
+        </div>
+        <div class="card en-card">
+            <img src="/gallery/en/card2.svg" alt="Moving Services">
+            <p>Moving Services</p>
+        </div>
+        <div class="card en-card">
+            <img src="/gallery/en/card1.svg" alt="Cleaning Services">
+            <p>Cleaning Services</p>
+        </div>
+        
+        <!-- Spanish Cards -->
+        <div class="card es-card" style="display: none;">
+            <img src="/gallery/es/card1.svg" alt="Servicios de Plomería">
+            <p>Servicios de Plomería</p>
+        </div>
+        <div class="card es-card" style="display: none;">
+            <img src="/gallery/es/card2.svg" alt="Empresa de Construcción">
+            <p>Empresa de Construcción</p>
+        </div>
+        <div class="card es-card" style="display: none;">
+            <img src="/gallery/es/card1.svg" alt="Servicios de HVAC">
+            <p>Servicios de HVAC</p>
+        </div>
+        <div class="card es-card" style="display: none;">
+            <img src="/gallery/es/card2.svg" alt="Servicios de Mudanza">
+            <p>Servicios de Mudanza</p>
+        </div>
+        <div class="card es-card" style="display: none;">
+            <img src="/gallery/es/card1.svg" alt="Servicios de Limpieza">
+            <p>Servicios de Limpieza</p>
+        </div>
+    </div>
+
+    <div>
+        <a href="#preview" class="cta-button">See Your Ad Live</a>
+        <a href="#email-capture" class="cta-button secondary">Hold 30 Days</a>
+    </div>
+</section>
+
+<script>
+    // Language Toggle Logic
+    function showLanguage(lang) {
+        const enCards = document.querySelectorAll('.en-card');
+        const esCards = document.querySelectorAll('.es-card');
+        const buttons = document.querySelectorAll('.language-toggle button');
+        
+        // Update button states
+        buttons.forEach(btn => btn.classList.remove('active'));
+        event.target.classList.add('active');
+        
+        if (lang === 'en') {
+            enCards.forEach(card => card.style.display = 'block');
+            esCards.forEach(card => card.style.display = 'none');
+            document.getElementById('gallery-title').textContent = 'Professional Ad Gallery';
+            document.getElementById('gallery-subtitle').textContent = 'See how our QR codes work for real businesses';
+        } else {
+            enCards.forEach(card => card.style.display = 'none');
+            esCards.forEach(card => card.style.display = 'block');
+            document.getElementById('gallery-title').textContent = 'Galería Profesional de Anuncios';
+            document.getElementById('gallery-subtitle').textContent = 'Ve cómo funcionan nuestros códigos QR para negocios reales';
+        }
+    }
+
+    // Countdown Timer Logic
+    function startCountdown(endDate) {
+        const timerElement = document.getElementById('timer');
+        const countdownInterval = setInterval(function() {
+            const now = new Date().getTime();
+            const distance = endDate - now;
+
+            if (distance <= 0) {
+                clearInterval(countdownInterval);
+                timerElement.innerHTML = "EXPIRED";
+            } else {
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                timerElement.innerHTML = days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
+            }
+        }, 1000);
+    }
+
+    // Set the countdown end date
+    const countdownEndDate = new Date("November 1, 2025 00:00:00").getTime();
+    startCountdown(countdownEndDate);
+</script>
+
+</body>
+</html>

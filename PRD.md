@@ -117,6 +117,12 @@ AdTopia SaaS is a **BULLETPROOF ENTERPRISE-GRADE** AI-powered revenue empire pla
 - **SecretSweeper security auditing** with zero hardcoded secrets
 - **Comprehensive error monitoring** and performance tracking
 
+### **Gallery Authentication Strategy**
+- **Public Gallery Access**: Active previews publicly readable without login
+- **Protected Purchase Flow**: Authentication required for checkout and account management
+- **RLS Policy**: `previews_public_read` allows anonymous access to active, non-expired previews
+- **Conversion Optimization**: See → Buy flow with minimal friction for higher conversions
+
 ## User Experience
 
 ### Onboarding Flow
